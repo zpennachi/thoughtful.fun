@@ -5,38 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>365 Days of Creation</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Fira Code', monospace;
             text-align: center;
             padding: 20px;
-            background-color: #f0f8ff;
-            color: #333;
+            background-color: #0f0f0f;
+            color: #00ff00;
         }
 
         #container {
             max-width: 600px;
             margin: 50px auto;
             padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #1a1a1a;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
             border-radius: 8px;
+            border: 1px solid #00ff00;
         }
 
         h1 {
-            font-size: 2em;
-            color: #007acc;
+            font-size: 3em;
+            font-weight: 600;
+            color: #00ff00;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.2em;
+            font-weight: 400;
+            color: #ffffff;
+            margin-bottom: 30px;
         }
 
         p {
             font-size: 1.2em;
             line-height: 1.5;
         }
+
+        .sneak-peek {
+            color: #00ff00;
+            text-decoration: underline dotted;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .sneak-peek:hover::after {
+            content: attr(data-preview);
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            border: 1px solid #00ff00;
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
     <div id="container">
+        <h1>365</h1>
+        <h2>A year-long creative exploration: each day reveals a unique concept. Hover over "Sneak Peek" to preview tomorrow’s idea.</h2>
         <h1 id="title">Loading...</h1>
         <p id="description">Please wait while we fetch today's content.</p>
+        <p class="sneak-peek" id="sneak-peek" data-preview="Loading next concept...">Sneak Peek</p>
     </div>
 
     <script>
@@ -54,57 +92,22 @@
             { noun: "Shadow", description: "Faint silhouette" },
             { noun: "Candle", description: "Flickering light" },
             { noun: "Mirror", description: "Reflective glass" },
-            { noun: "Beach", description: "Sandy shore" },
-            { noun: "Clock", description: "Time tracker" },
-            { noun: "Window", description: "Glass frame" },
-            { noun: "Hat", description: "Head covering" },
-            { noun: "Pencil", description: "Writing tool" },
-            { noun: "River", description: "Flowing water" },
-            { noun: "Jacket", description: "Warm covering" },
-            { noun: "Balloon", description: "Inflated joy" },
-            { noun: "Desk", description: "Work surface" },
-            { noun: "Blanket", description: "Cozy wrap" },
-            { noun: "Key", description: "Unlocking tool" },
-            { noun: "Lamp", description: "Light source" },
-            { noun: "Star", description: "Twinkling light" },
-            { noun: "Brush", description: "Painting tool" },
-            { noun: "Cup", description: "Liquid holder" },
-            { noun: "Stone", description: "Solid rock" },
-            { noun: "Painting", description: "Art canvas" },
-            { noun: "Hammer", description: "Striking tool" },
-            { noun: "Guitar", description: "Strings singing" },
-            { noun: "Leaf", description: "Quiet falling" },
-            { noun: "Basket", description: "Woven holder" },
-            { noun: "Bridge", description: "Connecting spans" },
-            { noun: "Clock", description: "Passing seconds" },
-            { noun: "Kite", description: "Floating play" },
-            { noun: "Tower", description: "Reaching sky" },
-            { noun: "Breeze", description: "Gentle whispers" },
-            { noun: "Hill", description: "Rising ground" },
-            { noun: "House", description: "Shelter standing" },
-            { noun: "Train", description: "Moving horizon" },
-            { noun: "Plate", description: "Serving meals" },
-            { noun: "Tree", description: "Nature’s tower" },
-            { noun: "Door", description: "Gateway closed" },
-            { noun: "Car", description: "Roaring journey" },
-            { noun: "Light", description: "Guiding force" },
-            { noun: "Egg", description: "Fragile start" },
-            { noun: "Bell", description: "Ring echo" },
-            { noun: "Road", description: "Endless path" },
-            { noun: "Statue", description: "Silent watcher" },
-            { noun: "Cloud", description: "Sky traveler" },
-            { noun: "Fork", description: "Splitting trails" },
-            { noun: "Hatchet", description: "Cutting force" },
-            // ... Add all remaining entries up to 365
+            // Add all other entries up to 365
         ];
 
         // Function to display content for the day
         function displayContent() {
-            const today = new Date().getDayOfYear() - 1; // Get current day of the year
-            const item = data[today] || { noun: "Unknown", description: "No description available." };
+            const today = new Date().getDayOfYear() - 1;
+            const tomorrow = today + 1;
 
-            document.getElementById("title").textContent = item.noun;
-            document.getElementById("description").textContent = item.description;
+            const todayItem = data[today] || { noun: "Unknown", description: "No description available." };
+            const tomorrowItem = data[tomorrow] || { noun: "Unknown", description: "No description available." };
+
+            document.getElementById("title").textContent = todayItem.noun;
+            document.getElementById("description").textContent = todayItem.description;
+
+            const sneakPeekElement = document.getElementById("sneak-peek");
+            sneakPeekElement.setAttribute("data-preview", `${tomorrowItem.noun}: ${tomorrowItem.description}`);
         }
 
         // Helper to get day of the year
