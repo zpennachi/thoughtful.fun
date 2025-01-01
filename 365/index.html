@@ -105,34 +105,6 @@
             background-color: #45a049;
         }
 
-
-                form {
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        
     </style>
 </head>
 <body>
@@ -169,21 +141,6 @@
 
         <p class="sneak-peek" id="sneak-peek" data-preview="Loading next concept...">Sneak Peek</p>
     </div>
-
-        <h1>Submit your info</h1>
-
-    <form id="zapierForm">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="4" required></textarea>
-
-        <button type="submit">Submit</button>
-    </form>
 
     <script>
         // Array of nouns with descriptions
@@ -587,46 +544,6 @@
 
         displayContent();
     </script>
-
-
-
-    
-    <script>
-        document.getElementById('zapierForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-
-            const data = {
-                name: name,
-                email: email,
-                message: message
-            };
-
-            // Replace with your actual Zapier Webhook URL
-            const webhookUrl = 'https://hooks.zapier.com/hooks/catch/your_zapier_webhook_url/';
-
-            fetch(webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Form submitted successfully!');
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                alert('Error submitting form!');
-                console.error('Error:', error);
-            });
-        });
-    </script>
-
     
 </body>
 </html>
