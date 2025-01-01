@@ -64,10 +64,44 @@
             white-space: nowrap;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
+         svg {
+    cursor: pointer;
+  }
+  circle {
+    cursor: pointer;
+    transition: fill 0.6s ease, transform 0.6s ease;
+  }
+  circle:hover {
+    fill: red;
+    transform: scale(1.1);
+  }
+        
     </style>
+
+
+ 
+
+
 </head>
 <body>
     <div id="container">
+        <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <!-- Row 1 -->
+  <circle cx="50" cy="50" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/goo';" />
+  <circle cx="100" cy="50" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/goo';" />
+  <circle cx="150" cy="50" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/goo';" />
+
+  <!-- Row 2 -->
+  <circle cx="50" cy="100" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/goo';" />
+  <circle cx="100" cy="100" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/goo';" />
+  <circle cx="150" cy="100" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/goo';" />
+
+  <!-- Row 3 -->
+  <circle cx="50" cy="150" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/goo';" />
+  <circle cx="100" cy="150" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/goo';" />
+  <!-- Bottom right circle is intentionally missing -->
+</svg>
         <h1>365</h1>
         <h2>A year-long creative exploration: each day reveals a unique concept. Hover over "Sneak Peek" to preview tomorrow’s idea.</h2>
         <h3 id="title">Loading...</h3>
