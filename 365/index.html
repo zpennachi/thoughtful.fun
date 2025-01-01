@@ -133,17 +133,6 @@
         <p class="sneak-peek" id="sneak-peek" data-preview="Loading next concept...">Sneak Peek</p>
     </div>
 
-    
-        <!-- Button to reveal the Zapier embed -->
-        <button id="submitButton" onclick="revealZapierEmbed()">Submit</button>
-
-        <!-- Zapier embed initially hidden -->
-        <div id="zapierEmbed">
-            <script type="module" src="https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js"></script>
-            <zapier-interfaces-page-embed page-id="cm5e43d48008814ejuymqnod3" no-background="false"></zapier-interfaces-page-embed>
-        </div>
-
-
     <script>
         // Array of nouns with descriptions
         const data = [
@@ -537,12 +526,6 @@
             const oneDay = 1000 * 60 * 60 * 24;
             return Math.floor(diff / oneDay);
         };
-
-        // Function to reveal the Zapier embed
-        function revealZapierEmbed() {
-            document.getElementById('zapierEmbed').style.display = 'block';
-            document.getElementById('submitButton').style.display = 'none'; // Hide the button after click
-        }
 
         displayContent();
     </script>
