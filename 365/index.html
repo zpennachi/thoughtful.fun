@@ -40,32 +40,75 @@
     </div>
 
     <script>
-        const dataUrl = "365_nouns_descriptions.csv";
-
-        // Function to fetch CSV and parse it
-        async function fetchData() {
-            const response = await fetch(dataUrl);
-            const text = await response.text();
-            const rows = text.split("\n").slice(1); // Skip header
-            return rows.map(row => {
-                const [noun, description] = row.split(",");
-                return { noun: noun.trim(), description: description.trim() };
-            });
-        }
+        // Array of nouns with descriptions
+        const data = [
+            { noun: "Chair", description: "Steady seat" },
+            { noun: "Sand", description: "Shifting grains" },
+            { noun: "Teacher", description: "Knowledge giver" },
+            { noun: "Love", description: "Boundless emotion" },
+            { noun: "Bicycle", description: "Rolling freedom" },
+            { noun: "Forest", description: "Verdant expanse" },
+            { noun: "Spoon", description: "Curved utensil" },
+            { noun: "Pillow", description: "Soft support" },
+            { noun: "Book", description: "Knowledge keeper" },
+            { noun: "Shadow", description: "Faint silhouette" },
+            { noun: "Candle", description: "Flickering light" },
+            { noun: "Mirror", description: "Reflective glass" },
+            { noun: "Beach", description: "Sandy shore" },
+            { noun: "Clock", description: "Time tracker" },
+            { noun: "Window", description: "Glass frame" },
+            { noun: "Hat", description: "Head covering" },
+            { noun: "Pencil", description: "Writing tool" },
+            { noun: "River", description: "Flowing water" },
+            { noun: "Jacket", description: "Warm covering" },
+            { noun: "Balloon", description: "Inflated joy" },
+            { noun: "Desk", description: "Work surface" },
+            { noun: "Blanket", description: "Cozy wrap" },
+            { noun: "Key", description: "Unlocking tool" },
+            { noun: "Lamp", description: "Light source" },
+            { noun: "Star", description: "Twinkling light" },
+            { noun: "Brush", description: "Painting tool" },
+            { noun: "Cup", description: "Liquid holder" },
+            { noun: "Stone", description: "Solid rock" },
+            { noun: "Painting", description: "Art canvas" },
+            { noun: "Hammer", description: "Striking tool" },
+            { noun: "Guitar", description: "Strings singing" },
+            { noun: "Leaf", description: "Quiet falling" },
+            { noun: "Basket", description: "Woven holder" },
+            { noun: "Bridge", description: "Connecting spans" },
+            { noun: "Clock", description: "Passing seconds" },
+            { noun: "Kite", description: "Floating play" },
+            { noun: "Tower", description: "Reaching sky" },
+            { noun: "Breeze", description: "Gentle whispers" },
+            { noun: "Hill", description: "Rising ground" },
+            { noun: "House", description: "Shelter standing" },
+            { noun: "Train", description: "Moving horizon" },
+            { noun: "Plate", description: "Serving meals" },
+            { noun: "Tree", description: "Nature’s tower" },
+            { noun: "Door", description: "Gateway closed" },
+            { noun: "Car", description: "Roaring journey" },
+            { noun: "Light", description: "Guiding force" },
+            { noun: "Egg", description: "Fragile start" },
+            { noun: "Bell", description: "Ring echo" },
+            { noun: "Road", description: "Endless path" },
+            { noun: "Statue", description: "Silent watcher" },
+            { noun: "Cloud", description: "Sky traveler" },
+            { noun: "Fork", description: "Splitting trails" },
+            { noun: "Hatchet", description: "Cutting force" },
+            // ... Add all remaining entries up to 365
+        ];
 
         // Function to display content for the day
-        async function displayContent() {
-            const data = await fetchData();
+        function displayContent() {
             const today = new Date().getDayOfYear() - 1; // Get current day of the year
+            const item = data[today] || { noun: "Unknown", description: "No description available." };
 
-            const { noun, description } = data[today] || { noun: "Unknown", description: "No description available." };
-
-            document.getElementById("title").textContent = noun;
-            document.getElementById("description").textContent = description;
+            document.getElementById("title").textContent = item.noun;
+            document.getElementById("description").textContent = item.description;
         }
 
         // Helper to get day of the year
-        Date.prototype.getDayOfYear = function() {
+        Date.prototype.getDayOfYear = function () {
             const start = new Date(this.getFullYear(), 0, 0);
             const diff = this - start;
             const oneDay = 1000 * 60 * 60 * 24;
