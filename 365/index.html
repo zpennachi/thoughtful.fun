@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>365 Days of Creation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f0f8ff;
+            color: #333;
+        }
+
+        #container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #007acc;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1 id="title">Loading...</h1>
+        <p id="description">Please wait while we fetch today's content.</p>
+    </div>
+
+    <script>
+        const dataUrl = "365_nouns_descriptions.csv";
+
+        // Function to fetch CSV and parse it
+        async function fetchData() {
+            const response = await fetch(dataUrl);
+            const text = await response.text();
+            const rows = text.split("\n").slice(1); // Skip header
+            return rows.map(row => {
+                const [noun, description] = row.split(",");
+                return { noun: noun.trim(), description: description.trim() };
+            });
+        }
+
+        // Function to display content for the day
+        async function displayContent() {
+            const data = await fetchData();
+            const today = new Date().getDayOfYear() - 1; // Get current day of the year
+
+            const { noun, description } = data[today] || { noun: "Unknown", description: "No description available." };
+
+            document.getElementById("title").textContent = noun;
+            document.getElementById("description").textContent = description;
+        }
+
+        // Helper to get day of the year
+        Date.prototype.getDayOfYear = function() {
+            const start = new Date(this.getFullYear(), 0, 0);
+            const diff = this - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            return Math.floor(diff / oneDay);
+        };
+
+        displayContent();
+    </script>
+</body>
+</html>
