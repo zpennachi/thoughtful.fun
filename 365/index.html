@@ -95,11 +95,12 @@
             const todayItem = data[today] || { noun: "Unknown", description: "No description available." };
             const tomorrowItem = data[tomorrow] || { noun: "Unknown", description: "No description available." };
 
-            document.getElementById("title").textContent = todayItem.noun;
+            const dayNumber = String(today + 1).padStart(3, "0");
+            document.getElementById("title").textContent = `Day ${dayNumber}: ${todayItem.noun}`;
             document.getElementById("description").textContent = todayItem.description;
 
             const sneakPeekElement = document.getElementById("sneak-peek");
-            sneakPeekElement.setAttribute("data-preview", `${tomorrowItem.noun}: ${tomorrowItem.description}`);
+            sneakPeekElement.setAttribute("data-preview", `Day ${String(tomorrow + 1).padStart(3, "0")}: ${tomorrowItem.noun}`);
         }
 
         // Helper to get day of the year
