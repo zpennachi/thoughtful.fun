@@ -3,99 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>thoughtful.fun</title>
-</head>
-
+    <title>Responsive Layout</title>
+    <!-- Poppins Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+</head>
 <body>
-    <div class="content-container">
-        <h1 class="heading">thoughtful.fun</h1>
-        <h2 class="subheading">have fun, be thoughtful, be kind :)</h2>
-        <img src="https://via.placeholder.com/300x200" alt="Placeholder Image" class="content-image">
-        <img src="https://via.placeholder.com/300x200" alt="Another Placeholder Image" class="content-image">
-        <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
-                      alt="3D Model"
-                      ar
-                      auto-rotate
-                      camera-controls
-                      class="model-viewer-element">
-        </model-viewer>
+    <div class="hero-section">
+        <div class="logo-container">
+            <img src="https://via.placeholder.com/100" alt="Logo" class="logo">
+        </div>
+        <div class="model-viewer-container">
+            <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+                          alt="3D Model"
+                          ar
+                          auto-rotate
+                          camera-controls
+                          class="model-viewer">
+            </model-viewer>
+        </div>
+        <h2 class="subheading">Subheading</h2>
     </div>
-
-
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Doto:wght@400;700&display=swap');
-
-        body {
-            font-family: 'Doto', monospace;
-            text-align: center;
-            padding: 20px;
-            margin: 0;
-            background-color: #fcfcfa;
-            color: #000000;
-        }
-
-        #container {
-            max-width: 600px;
-            margin: 50px auto;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            text-align: left;
-        }
-
-        h1 {
-            font-size: 1.75em;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        h2 {
-            font-size: 1.2em;
-            font-weight: 460;
-            margin-bottom: 10px;
-        }
-
-        h3 {
-            font-size: 3em;
-            font-weight: 900;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 1.2em;
-            line-height: 1.5;
-        }
- 
-  svg {
-    cursor: pointer;
-  }
-  circle {
-    cursor: pointer;
-    transition: fill 0.6s ease, transform 0.6s ease;
-  }
-  circle:hover {
-    fill: red;
-    transform: scale(1.1);
-  }
-    </style>
-
-    
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
-  <!-- Row 1 -->
-  <circle cx="50" cy="50" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/goo';" />
-  <circle cx="100" cy="50" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/goo';" />
-  <circle cx="150" cy="50" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/goo';" />
-
-  <!-- Row 2 -->
-  <circle cx="50" cy="100" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/goo';" />
-  <circle cx="100" cy="100" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/goo';" />
-  <circle cx="150" cy="100" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/goo';" />
-
-  <!-- Row 3 -->
-  <circle cx="50" cy="150" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/goo';" />
-</svg>
-
 </body>
 </html>
