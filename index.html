@@ -6,12 +6,22 @@
     <title>thoughtful.fun</title>
 </head>
 <body>
-    <p>
-        thoughtful.fun<br>
-        have fun, 
-        be thoughtful, 
-        be kind :)</a>
-    </p>
+    <div class="content-container">
+        <h1 class="heading">thoughtful.fun</h1>
+        <h2 class="subheading">have fun, be thoughtful, be kind :)</h2>
+        <img src="https://via.placeholder.com/300x200" alt="Placeholder Image" class="content-image">
+        <img src="https://via.placeholder.com/300x200" alt="Another Placeholder Image" class="content-image">
+        <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+                      alt="3D Model"
+                      ar
+                      auto-rotate
+                      camera-controls
+                      class="model-viewer-element">
+        </model-viewer>
+    </div>
+
+
+    
 <style>
   svg {
     cursor: pointer;
@@ -24,8 +34,110 @@
     fill: red;
     transform: scale(1.1);
   }
-</style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Doto:wght@400;700&display=swap');
 
+        body {
+            font-family: 'Doto', monospace;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            background-color: #fcfcfa;
+            color: #000000;
+        }
+
+        #container {
+            max-width: 600px;
+            margin: 50px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        h1 {
+            font-size: 1.75em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.2em;
+            font-weight: 460;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 3em;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.5;
+        }
+
+        .sneak-peek {
+            text-decoration: underline dotted;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .sneak-peek:hover::after {
+            content: attr(data-preview);
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f9f9f9;
+            color: #000000;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            white-space: nowrap;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        svg {
+            cursor: pointer;
+        }
+
+        circle {
+            cursor: pointer;
+            transition: fill 0.6s ease, transform 0.6s ease;
+        }
+
+        circle:hover {
+            fill: red;
+            transform: scale(1.1);
+        }
+
+        /* Style for hiding the Zapier embed */
+        #zapierEmbed {
+            display: none;
+            max-width: 75%;
+            height: 500px;
+            margin-top: 20px;
+        }
+
+        /* Button to reveal the Zapier embed */
+        #submitButton {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #submitButton:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+
+    
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
   <!-- Row 1 -->
   <circle cx="50" cy="50" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/goo';" />
