@@ -56,26 +56,6 @@
             line-height: 1.5;
         }
 
-        .sneak-peek {
-            text-decoration: underline dotted;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .sneak-peek:hover::after {
-            content: attr(data-preview);
-            position: absolute;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #f9f9f9;
-            color: #000000;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            white-space: nowrap;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
     </style>
 </head>
 <body>
