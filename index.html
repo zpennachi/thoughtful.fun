@@ -18,14 +18,14 @@
 
         .container {
             max-width: 900px;
-            display: flex;
             margin: 50px auto;
+            display: flex;
             flex-direction: column;
             align-items: flex-start;
             text-align: right;
         }
 
-                .horizontal-container {
+        .horizontal-container {
             width: 100%;
             justify-content: space-between;
             display: flex;
@@ -34,10 +34,10 @@
             text-align: left;
         }
 
-
         img {
             margin-bottom: 32px;
-            
+        }
+
         h1 {
             font-size: 2rem;
             font-weight: 900;
@@ -50,40 +50,58 @@
             margin-bottom: 10px;
         }
 
-
         p {
             font-size: 1rem;
             line-height: 1.5;
         }
 
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Adds spacing between images */
+        }
+
+        .image-container img {
+            flex: 1;
+            max-width: calc(50% - 10px); /* Two images side-by-side on desktop */
+            box-sizing: border-box;
+        }
+
+        /* Responsive Design for Mobile */
+        @media (max-width: 768px) {
+            .image-container {
+                flex-direction: column;
+            }
+
+            .image-container img {
+                max-width: 100%; /* Stack images vertically */
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="horizontal-container">
-            
-<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="9.41177" cy="9.41177" r="9.41177" fill="#1100FF"/>
-<circle cx="9.41177" cy="32" r="9.41177" fill="#1100FF"/>
-<circle cx="9.41177" cy="54.5882" r="9.41177" fill="#1100FF"/>
-<circle cx="32" cy="9.41177" r="9.41177" fill="#1100FF"/>
-<circle cx="32" cy="32" r="9.41177" fill="#1100FF"/>
-<circle cx="54.5882" cy="9.41177" r="9.41177" fill="#1100FF"/>
-<circle cx="54.5882" cy="32" r="9.41177" fill="#1100FF"/>
-</svg>
-
-
-    
-            </div>
-            <h1>thoughtful.fun</h1>
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="9.41177" cy="9.41177" r="9.41177" fill="#1100FF"/>
+                <circle cx="9.41177" cy="32" r="9.41177" fill="#1100FF"/>
+                <circle cx="9.41177" cy="54.5882" r="9.41177" fill="#1100FF"/>
+                <circle cx="32" cy="9.41177" r="9.41177" fill="#1100FF"/>
+                <circle cx="32" cy="32" r="9.41177" fill="#1100FF"/>
+                <circle cx="54.5882" cy="9.41177" r="9.41177" fill="#1100FF"/>
+                <circle cx="54.5882" cy="32" r="9.41177" fill="#1100FF"/>
+            </svg>
+        </div>
+        <h1>thoughtful.fun</h1>
         <p>have fun, be thoughtful, be kind :)</p>
     </div>
 
-    <div class="container"
+    <div class="container">
         <h1>001: Chair</h1>
-        <img src="365/001/chair01.jpg" alt="chair01(pink)" width="100%">
-        
-        <img src="365/001/chair02.jpg" alt="chair02(yellow)" width="100%">
+        <div class="image-container">
+            <img src="365/001/chair01.jpg" alt="chair01(pink)" width="100%">
+            <img src="365/001/chair02.jpg" alt="chair02(yellow)" width="100%">
+        </div>
         <p id="description">stable platform</p>
     </div>
 </body>
