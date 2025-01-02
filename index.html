@@ -25,6 +25,16 @@
             text-align: left;
         }
 
+                .horizontal-container {
+            max-width: 600px;
+            margin: 50px auto;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+
         img {
             margin-bottom: 32px;
             
@@ -84,7 +94,8 @@
 </head>
 <body>
     <div class="container">
-        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+        <div class="horizontal-container"
+        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 200 200">
             <!-- Row 1 -->
             <circle cx="50" cy="50" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/';" />
             <circle cx="100" cy="50" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun/';" />
@@ -99,6 +110,7 @@
             <circle cx="50" cy="150" r="20" fill="blue" onclick="window.location.href='https://thoughtful.fun';" />
         </svg>
         <h1>thoughtful.fun</h1>
+            </div>
         <p>have fun, be thoughtful, be kind :)</p>
     </div>
 
