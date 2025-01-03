@@ -106,13 +106,12 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        
-.marquee {
+     .marquee {
   overflow: hidden;
   white-space: nowrap;
   position: relative;
   width: 100%;
-  
+  background: #ffebcd;
   padding: 10px 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -125,23 +124,23 @@
 .marquee-inner span {
   padding: 0 2rem;
   font-size: 1.5rem;
-  
+  color: #333;
   white-space: nowrap;
 }
 
+/* Seamless scrolling animation */
 @keyframes scroll {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
-/* Ensures a seamless loop */
 .marquee-inner {
   display: flex;
-  width: max-content; /* Ensures content spans only as wide as necessary */
+  width: max-content; /* Automatically adjusts to content width */
 }
         
         
@@ -169,7 +168,10 @@
       <span>have fun, be thoughtful, be kind :)</span>
       <span>have fun, be thoughtful, be kind :)</span>
       <span>have fun, be thoughtful, be kind :)</span>
-    <span>have fun, be thoughtful, be kind :)</span>
+      <!-- Duplicate content -->
+      <span>have fun, be thoughtful, be kind :)</span>
+      <span>have fun, be thoughtful, be kind :)</span>
+      <span>have fun, be thoughtful, be kind :)</span>
     </div>
   </div>
 
