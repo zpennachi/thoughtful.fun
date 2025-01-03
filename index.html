@@ -125,17 +125,23 @@
 .marquee-inner span {
   padding: 0 2rem;
   font-size: 1.5rem;
-  color: #333;
+  
   white-space: nowrap;
 }
 
 @keyframes scroll {
   0% {
-    transform: translateX(100%);
+    transform: translateX(0);
   }
   100% {
     transform: translateX(-100%);
   }
+}
+
+/* Ensures a seamless loop */
+.marquee-inner {
+  display: flex;
+  width: max-content; /* Ensures content spans only as wide as necessary */
 }
         
         
