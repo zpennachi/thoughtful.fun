@@ -107,6 +107,38 @@
         }
 
         
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  width: 100%;
+  background: #ffebcd;
+  padding: 10px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.marquee-inner {
+  display: flex;
+  animation: scroll 10s linear infinite;
+}
+
+.marquee-inner span {
+  padding: 0 2rem;
+  font-size: 1.5rem;
+  color: #333;
+  white-space: nowrap;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+        
+        
     </style>
 </head>
 <body>
@@ -123,7 +155,18 @@
             </svg>
         </div>
         <h1>thoughtful.fun</h1>
-        <p>have fun, be thoughtful, be kind :)</p>
+    
+
+
+          <div class="marquee">
+    <div class="marquee-inner">
+      <span>have fun, be thoughtful, be kind :)</span>
+      <span>have fun, be thoughtful, be kind :)</span>
+      <span>have fun, be thoughtful, be kind :)</span>
+    </div>
+  </div>
+
+        
         <h3 id="title">Loading...</h3>
         <p id="description">Please wait while we fetch today's content.</p>
 
