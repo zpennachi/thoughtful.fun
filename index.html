@@ -5,123 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>thoughtful.fun</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Doto:wght@400;900&display=swap');
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Doto:wght@400;900&display=swap');
 
-body {
-    font-family: 'Doto', monospace;
-    text-align: right;
-    padding: 16px;
-    margin: 0;
-    background-color: #fcfcfa;
-    color: #000000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-}
+    body {
+        font-family: 'Doto', monospace;
+        text-align: right;
+        padding: 16px;
+        margin: 0;
+        background-color: #fcfcfa;
+        color: #000000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
 
-.container {
-    max-width: 900px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: right;
-    margin: 32px auto; /* Creates separation between sections */
-}
+    .container {
+        max-width: 900px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: right;
+        margin: 32px auto; /* Creates separation between sections */
+    }
 
-.horizontal-container {
-    width: 100%;
-    justify-content: space-between;
-    display: flex;
-    flex-direction: row;
-    align-items: end;
-    text-align: left;
-    margin-bottom: 16px;
-}
+    .horizontal-container {
+        width: 100%;
+        justify-content: space-between;
+        display: flex;
+        flex-direction: row;
+        align-items: end;
+        text-align: left;
+        margin-bottom: 16px;
+    }
 
-h1 {
-    font-size: 1.5rem;
-    font-weight: 900;
-    margin: 8px 0; /* Tighten spacing above and below headings */
-}
+    h1 {
+        font-size: 1.5rem;
+        font-weight: 900;
+        margin: 8px 0; /* Tighten spacing above and below headings */
+    }
 
-h2 {
-    font-size: 1rem;
-    font-weight: 400;
-    margin: 4px 0; /* Further reduce spacing for subheadings */
-}
+    h2 {
+        font-size: 1rem;
+        font-weight: 400;
+        margin: 4px 0; /* Further reduce spacing for subheadings */
+    }
 
-p {
-    font-size: 0.9rem; /* Slightly smaller text for better proportion */
-    line-height: 1.2; /* Tighter line height */
-    margin: 4px 0; /* Reduce spacing around paragraphs */
-}
+    p {
+        font-size: 0.9rem; /* Slightly smaller text for better proportion */
+        line-height: 1.2; /* Tighter line height */
+        margin: 4px 0; /* Reduce spacing around paragraphs */
+    }
 
-.sneak-peek {
-    margin-top: 8px; /* Minimal spacing after the sneak peek link */
-}
+    .sneak-peek {
+        margin-top: 8px; /* Minimal spacing after the sneak peek link */
+    }
 
-model-viewer {
-    width: 60%;
-    min-height: 80vh;
-    margin-top: 16px; /* Slight spacing above the model */
-}
-
-.image-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px; /* Slightly reduced spacing between images */
-    margin-top: 16px; /* Spacing between the model and images */
-}
-
-.image-container img {
-    flex: 1;
-    max-width: calc(50% - 8px); /* Adjusted for smaller gaps */
-    box-sizing: border-box;
-}
-
-@media (max-width: 768px) {
     model-viewer {
-        width: 100%; /* Full width on smaller screens */
+        width: 60%;
+        min-height: 80vh;
+        margin-top: 16px; /* Slight spacing above the model */
     }
 
     .image-container {
-        flex-direction: column;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px; /* Slightly reduced spacing between images */
+        margin-top: 16px; /* Spacing between the model and images */
     }
 
     .image-container img {
-        max-width: 100%; /* Stack images vertically */
+        flex: 1;
+        max-width: calc(50% - 8px); /* Adjusted for smaller gaps */
+        box-sizing: border-box;
     }
-}
 
-.marquee {
-    margin: 16px 0; /* Separate the marquee from other content */
-}
+    @media (max-width: 768px) {
+        model-viewer {
+            width: 100%; /* Full width on smaller screens */
+        }
 
-.marquee-inner span {
-    font-size: 0.9rem; /* Slightly smaller text for better fit */
-}
+        .image-container {
+            flex-direction: column;
+        }
 
+        .image-container img {
+            max-width: 100%; /* Stack images vertically */
+        }
+    }
 
-/* Seamless scrolling animation */
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
+    .marquee {
+        margin: 16px 0; /* Separate the marquee from other content */
+        overflow: hidden;
+        white-space: nowrap;
+        position: relative;
+        width: 100%;
+    }
 
-.marquee-inner {
-  display: flex;
-  width: max-content; /* Automatically adjusts to content width */
-}
-        
-        
-    </style>
+    .marquee-inner {
+        display: flex;
+        animation: scroll 25s linear infinite;
+        width: max-content; /* Automatically adjusts to content width */
+    }
+
+    .marquee-inner span {
+        padding: 0 1rem;
+        font-size: 0.9rem; /* Slightly smaller text for better fit */
+        color: #333;
+        white-space: nowrap;
+    }
+
+    /* Seamless scrolling animation */
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+</style>
+
 </head>
 <body>
     <div class="container">
