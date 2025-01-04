@@ -23,14 +23,12 @@ body {
 }
 
 .container {
-    max-width: 600px;
-    width: 100%;
+    max-width: 900px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     text-align: right;
-    margin: 0 auto; /* Center the container horizontally */
-    padding-bottom: 3rem;
+    margin: 32px auto; /* Creates separation between sections */
 }
 
 .horizontal-container {
@@ -40,27 +38,55 @@ body {
     flex-direction: row;
     align-items: end;
     text-align: left;
+    margin-bottom: 16px;
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin: 8px 0; /* Tighten spacing above and below headings */
+}
+
+h2 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 4px 0; /* Further reduce spacing for subheadings */
+}
+
+p {
+    font-size: 0.9rem; /* Slightly smaller text for better proportion */
+    line-height: 1.2; /* Tighter line height */
+    margin: 4px 0; /* Reduce spacing around paragraphs */
+}
+
+.sneak-peek {
+    margin-top: 8px; /* Minimal spacing after the sneak peek link */
 }
 
 model-viewer {
-    width: 100%;
-    min-height: 50vh;
+    width: 60%;
+    min-height: 80vh;
+    margin-top: 16px; /* Slight spacing above the model */
 }
-
 
 .image-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 16px; /* Slightly reduced spacing between images */
+    margin-top: 16px; /* Spacing between the model and images */
 }
 
 .image-container img {
     flex: 1;
-    max-width: calc(50% - 10px); /* Two images side-by-side on desktop */
+    max-width: calc(50% - 8px); /* Adjusted for smaller gaps */
     box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
+    model-viewer {
+        width: 100%; /* Full width on smaller screens */
+    }
+
     .image-container {
         flex-direction: column;
     }
@@ -70,46 +96,14 @@ model-viewer {
     }
 }
 
-
-                .sneak-peek {
-            text-decoration: underline dotted;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .sneak-peek:hover::after {
-            content: attr(data-preview);
-            position: absolute;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #f9f9f9;
-            color: #000000;
-            
-            border-radius: 5px;
-            font-size: 0.9em;
-            white-space: nowrap;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-     .marquee {
-  overflow: hidden;
-  white-space: nowrap;
-  position: relative;
-  width: 100%;
-}
-
-.marquee-inner {
-  display: flex;
-  animation: scroll 25s linear infinite;
+.marquee {
+    margin: 16px 0; /* Separate the marquee from other content */
 }
 
 .marquee-inner span {
-  padding: 0 1rem;
-  font-size: 1rem;
-  color: #333;
-  white-space: nowrap;
+    font-size: 0.9rem; /* Slightly smaller text for better fit */
 }
+
 
 /* Seamless scrolling animation */
 @keyframes scroll {
