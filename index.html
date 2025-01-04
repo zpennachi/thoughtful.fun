@@ -621,31 +621,40 @@ View in your space
         ];
 
 
-        // Function to display content for the day
-        function displayContent() {
-            const today = new Date().getDayOfYear() - 1;
-            const tomorrow = today + 1;
+ // Function to display content for the day
+function displayContent() {
+    const today = new Date().getDayOfYear() - 1; // Get today's index (0-based)
+    const tomorrow = today + 1; // Calculate tomorrow's index
 
-            const todayItem = data[today] || { noun: "Unknown", description: "No description available." };
-            const tomorrowItem = data[tomorrow] || { noun: "Unknown", description: "No description available." };
+    // Fetch today's and tomorrow's items from the data array
+    const todayItem = data[today] || { noun: "Unknown", description: "No description available." };
+    const tomorrowItem = data[tomorrow] || { noun: "Unknown", description: "No description available." };
 
-            const dayNumber = String(today + 1).padStart(3, "0");
-            document.getElementById("title").textContent = Day ${dayNumber}: ${todayItem.noun};
-            document.getElementById("description").textContent = todayItem.description;
+    // Format the day number as a 3-digit string
+    const dayNumber = String(today + 1).padStart(3, "0");
 
-            const sneakPeekElement = document.getElementById("sneak-peek");
-            sneakPeekElement.setAttribute("data-preview", Day ${String(tomorrow + 1).padStart(3, "0")}: ${tomorrowItem.noun});
-        }
+    // Update the title, description, and sneak peek elements
+    document.getElementById("title").textContent = `Day ${dayNumber}: ${todayItem.noun}`;
+    document.getElementById("description").textContent = todayItem.description;
 
-        // Helper to get day of the year
-        Date.prototype.getDayOfYear = function () {
-            const start = new Date(this.getFullYear(), 0, 0);
-            const diff = this - start;
-            const oneDay = 1000 * 60 * 60 * 24;
-            return Math.floor(diff / oneDay);
-        };
+    const sneakPeekElement = document.getElementById("sneak-peek");
+    sneakPeekElement.setAttribute(
+        "data-preview",
+        `Day ${String(tomorrow + 1).padStart(3, "0")}: ${tomorrowItem.noun}`
+    );
+}
 
-        displayContent();
+// Helper to get the day of the year
+Date.prototype.getDayOfYear = function () {
+    const start = new Date(this.getFullYear(), 0, 0); // Jan 0th as start
+    const diff = this - start; // Difference in milliseconds
+    const oneDay = 1000 * 60 * 60 * 24; // Milliseconds in a day
+    return Math.floor(diff / oneDay);
+};
+
+// Call the displayContent function after DOM is fully loaded
+document.addEventListener("DOMContentLoaded", displayContent);
+
     </script>
 </body>
 </html>
