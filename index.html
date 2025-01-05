@@ -613,14 +613,11 @@ p {
                 "imageSrcs": ["365/003/shoes3 (3).png"]
             }
         ];
-
-        function displayPrompts() {
+     function displayPrompts() {
             const today = new Date().getDayOfYear() - 1;
-            const tomorrow = today + 1;
-            const currentItem = prompts[today % prompts.length];
-            const nextItem = prompts[tomorrow % prompts.length];
+            const currentItem = { ...prompts[today % prompts.length], day: today + 1 };
+            const nextItem = { ...prompts[(today + 1) % prompts.length], day: today + 2 };
 
-            // Update the title, description, and sneak peek
             document.getElementById("title").textContent = `Day ${currentItem.day}: ${currentItem.noun}`;
             document.getElementById("description").textContent = currentItem.description;
             document.getElementById("sneak-peek").setAttribute(
@@ -632,32 +629,54 @@ p {
         function displayPreviousContent() {
             const dynamicContent = document.getElementById("dynamic-content");
 
-            database.forEach((item) => {
-                // Placeholder for lazy loading
-                const placeholder = document.createElement("div");
-                placeholder.className = "lazy-placeholder";
-                placeholder.textContent = `Loading Day ${item.day}...`;
-                placeholder.dataset.day = item.day;
-                dynamicContent.appendChild(placeholder);
-            });
+            database.reverse().forEach((item) => {
+                const dayContainer = document.createElement("div");
+                dayContainer.className = "day-container";
 
-            // Lazy load content using IntersectionObserver
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const day = entry.target.dataset.day;
-                        const item = database.find((d) => d.day === day);
-                        loadContent(entry.target, item);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            });
+                dayContainer.innerHTML = `
+                    <h1>Day ${item.day}: ${item.noun}</h1>
+                    <p>${item.description}</p>
+                `;
 
-            document.querySelectorAll(".lazy-placeholder").forEach((placeholder) => {
-                observer.observe(placeholder);
+                if (item.modelSrc) {
+                    const modelViewer = document.createElement("model-viewer");
+                    modelViewer.setAttribute("src", item.modelSrc);
+                    modelViewer.setAttribute("camera-controls", "");
+                    modelViewer.setAttribute("auto-rotate", "");
+                    modelViewer.setAttribute("ar", "");
+                    modelViewer.setAttribute("ar-modes", "webxr scene-viewer quick-look");
+                    dayContainer.appendChild(modelViewer);
+                }
+
+                if (item.imageSrcs) {
+                    const imageContainer = document.createElement("div");
+                    imageContainer.className = "image-container";
+                    item.imageSrcs.forEach((src) => {
+                        const img = document.createElement("img");
+                        img.src = src;
+                        img.alt = `Image for ${item.noun}`;
+                        imageContainer.appendChild(img);
+                    });
+                    dayContainer.appendChild(imageContainer);
+                }
+
+                dynamicContent.appendChild(dayContainer);
             });
         }
 
+        Date.prototype.getDayOfYear = function () {
+            const start = new Date(this.getFullYear(), 0, 0);
+            const diff = this - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            return Math.floor(diff / oneDay);
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            displayPrompts();
+            displayPreviousContent();
+        });
+
+        
         function loadContent(placeholder, item) {
             placeholder.innerHTML = `
                 <h1>Day ${item.day}: ${item.noun}</h1>
