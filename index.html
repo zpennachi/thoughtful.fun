@@ -152,6 +152,25 @@ p {
   width: max-content; /* Automatically adjusts to content width */
 }
         
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .lazy-placeholder {
+            height: 300px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 1rem;
+            color: #999;
+        }
         
     </style>
 </head>
@@ -251,9 +270,11 @@ View in your space
 
 
     
+
+
     <script>
-        // Array of nouns with descriptions
-        const data = [
+
+        const prompts = [
                { "noun": "Chair", "description": "Steady seat" },
     { "noun": "Stapler", "description": "Paper fastener" },
     { "noun": "Shoes", "description": "Footwear" },
@@ -621,40 +642,135 @@ View in your space
         ];
 
 
- // Function to display content for the day
-function displayContent() {
-    const today = new Date().getDayOfYear() - 1; // Get today's index (0-based)
-    const tomorrow = today + 1; // Calculate tomorrow's index
+        // Previous Days' Content (JSON-based database)
+        const database = [
+            {
+                "day": "001",
+                "noun": "Chair",
+                "description": "Stable platform",
+                "modelSrc": "365/001/chair-web.glb",
+                "imageSrcs": ["365/001/chair01.jpg", "365/001/chair02.jpg"]
+            },
+            {
+                "day": "002",
+                "noun": "Stapler",
+                "description": "Paper fastener",
+                "modelSrc": "365/002/002.glb",
+                "imageSrcs": ["365/002/002stapler1.jpg"]
+            },
+            {
+                "day": "003",
+                "noun": "Shoes",
+                "description": "Footwear",
+                "modelSrc": "365/003/003.glb",
+                "imageSrcs": ["365/003/shoes3 (3).png"]
+            }
+        ];
 
-    // Fetch today's and tomorrow's items from the data array
-    const todayItem = data[today] || { noun: "Unknown", description: "No description available." };
-    const tomorrowItem = data[tomorrow] || { noun: "Unknown", description: "No description available." };
+        function displayPrompts() {
+            const today = new Date().getDayOfYear() - 1;
+            const tomorrow = today + 1;
+            const currentItem = prompts[today % prompts.length];
+            const nextItem = prompts[tomorrow % prompts.length];
 
-    // Format the day number as a 3-digit string
-    const dayNumber = String(today + 1).padStart(3, "0");
+            // Update the title, description, and sneak peek
+            document.getElementById("title").textContent = `Day ${currentItem.day}: ${currentItem.noun}`;
+            document.getElementById("description").textContent = currentItem.description;
+            document.getElementById("sneak-peek").setAttribute(
+                "data-preview",
+                `Day ${nextItem.day}: ${nextItem.noun}`
+            );
+        }
 
-    // Update the title, description, and sneak peek elements
-    document.getElementById("title").textContent = `Day ${dayNumber}: ${todayItem.noun}`;
-    document.getElementById("description").textContent = todayItem.description;
+        function displayPreviousContent() {
+            const dynamicContent = document.getElementById("dynamic-content");
 
-    const sneakPeekElement = document.getElementById("sneak-peek");
-    sneakPeekElement.setAttribute(
-        "data-preview",
-        `Day ${String(tomorrow + 1).padStart(3, "0")}: ${tomorrowItem.noun}`
-    );
-}
+            database.forEach((item) => {
+                // Placeholder for lazy loading
+                const placeholder = document.createElement("div");
+                placeholder.className = "lazy-placeholder";
+                placeholder.textContent = `Loading Day ${item.day}...`;
+                placeholder.dataset.day = item.day;
+                dynamicContent.appendChild(placeholder);
+            });
 
-// Helper to get the day of the year
-Date.prototype.getDayOfYear = function () {
-    const start = new Date(this.getFullYear(), 0, 0); // Jan 0th as start
-    const diff = this - start; // Difference in milliseconds
-    const oneDay = 1000 * 60 * 60 * 24; // Milliseconds in a day
-    return Math.floor(diff / oneDay);
-};
+            // Lazy load content using IntersectionObserver
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const day = entry.target.dataset.day;
+                        const item = database.find((d) => d.day === day);
+                        loadContent(entry.target, item);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
 
-// Call the displayContent function after DOM is fully loaded
-document.addEventListener("DOMContentLoaded", displayContent);
+            document.querySelectorAll(".lazy-placeholder").forEach((placeholder) => {
+                observer.observe(placeholder);
+            });
+        }
 
+        function loadContent(placeholder, item) {
+            placeholder.innerHTML = `
+                <h1>Day ${item.day}: ${item.noun}</h1>
+                <p>${item.description}</p>
+            `;
+
+            if (item.modelSrc) {
+                const modelViewer = document.createElement("model-viewer");
+                modelViewer.setAttribute("src", item.modelSrc);
+                modelViewer.setAttribute("camera-controls", "");
+                modelViewer.setAttribute("auto-rotate", "");
+                modelViewer.setAttribute("ar", "");
+                modelViewer.setAttribute("ar-modes", "webxr scene-viewer quick-look");
+                placeholder.appendChild(modelViewer);
+            }
+
+            if (item.imageSrcs) {
+                const imageContainer = document.createElement("div");
+                imageContainer.className = "image-container";
+                item.imageSrcs.forEach((src) => {
+                    const img = document.createElement("img");
+                    img.setAttribute("data-src", src);
+                    img.alt = `Image for ${item.noun}`;
+                    img.className = "lazy-image";
+                    imageContainer.appendChild(img);
+                });
+                placeholder.appendChild(imageContainer);
+                lazyLoadImages();
+            }
+        }
+
+        function lazyLoadImages() {
+            const lazyImages = document.querySelectorAll("img.lazy-image");
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove("lazy-image");
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            lazyImages.forEach((img) => {
+                imageObserver.observe(img);
+            });
+        }
+
+        Date.prototype.getDayOfYear = function () {
+            const start = new Date(this.getFullYear(), 0, 0);
+            const diff = this - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            return Math.floor(diff / oneDay);
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            displayPrompts();
+            displayPreviousContent();
+        });
     </script>
 </body>
 </html>
