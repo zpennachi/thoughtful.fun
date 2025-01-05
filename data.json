@@ -11,7 +11,7 @@
         "noun": "Stapler",
         "description": "Paper fastener",
         "modelSrc": "365/002/002.glb",
-        "imageSrcs": ["365/002/002stapler1.jpg"]
+        "imageSrcs": ["365/002/002stapler1.jpg", "365/002/stapler-04.jpeg"]
     },
     {
         "day": "003",
