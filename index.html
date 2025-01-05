@@ -27,7 +27,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    text-align: right;
+    text-align: left;
     margin: 0 auto; /* Center the container horizontally */
     padding-bottom: 32px;
 }
@@ -626,43 +626,47 @@ p {
             );
         }
 
-        function displayPreviousContent() {
-            const dynamicContent = document.getElementById("dynamic-content");
+function displayPreviousContent() {
+    const dynamicContent = document.getElementById("dynamic-content");
 
-            database.reverse().forEach((item) => {
-                const dayContainer = document.createElement("div");
-                dayContainer.className = "day-container";
+    // Create a reversed copy of the database without mutating the original
+    const reversedDatabase = [...database].reverse();
 
-                dayContainer.innerHTML = `
-                    <h1>Day ${item.day}: ${item.noun}</h1>
-                    <p>${item.description}</p>
-                `;
+    reversedDatabase.forEach((item) => {
+        const dayContainer = document.createElement("div");
+        dayContainer.className = "day-container";
 
-                if (item.modelSrc) {
-                    const modelViewer = document.createElement("model-viewer");
-                    modelViewer.setAttribute("src", item.modelSrc);
-                    modelViewer.setAttribute("camera-controls", "");
-                    modelViewer.setAttribute("auto-rotate", "");
-                    modelViewer.setAttribute("ar", "");
-                    modelViewer.setAttribute("ar-modes", "webxr scene-viewer quick-look");
-                    dayContainer.appendChild(modelViewer);
-                }
+        dayContainer.innerHTML = `
+            <h1>Day ${item.day}: ${item.noun}</h1>
+            <p>${item.description}</p>
+        `;
 
-                if (item.imageSrcs) {
-                    const imageContainer = document.createElement("div");
-                    imageContainer.className = "image-container";
-                    item.imageSrcs.forEach((src) => {
-                        const img = document.createElement("img");
-                        img.src = src;
-                        img.alt = `Image for ${item.noun}`;
-                        imageContainer.appendChild(img);
-                    });
-                    dayContainer.appendChild(imageContainer);
-                }
-
-                dynamicContent.appendChild(dayContainer);
-            });
+        if (item.modelSrc) {
+            const modelViewer = document.createElement("model-viewer");
+            modelViewer.setAttribute("src", item.modelSrc);
+            modelViewer.setAttribute("camera-controls", "");
+            modelViewer.setAttribute("auto-rotate", "");
+            modelViewer.setAttribute("ar", "");
+            modelViewer.setAttribute("ar-modes", "webxr scene-viewer quick-look");
+            dayContainer.appendChild(modelViewer);
         }
+
+        if (item.imageSrcs) {
+            const imageContainer = document.createElement("div");
+            imageContainer.className = "image-container";
+            item.imageSrcs.forEach((src) => {
+                const img = document.createElement("img");
+                img.src = src;
+                img.alt = `Image for ${item.noun}`;
+                imageContainer.appendChild(img);
+            });
+            dayContainer.appendChild(imageContainer);
+        }
+
+        dynamicContent.appendChild(dayContainer);
+    });
+}
+
 
         Date.prototype.getDayOfYear = function () {
             const start = new Date(this.getFullYear(), 0, 0);
