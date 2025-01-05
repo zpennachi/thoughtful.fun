@@ -608,26 +608,35 @@ async function fetchData() {
         const response = await fetch('data.json');
         const data = await response.json();
 
-        // Pass the loaded data to the display functions
-        displayPrompts(data);
+        // Display previous days' content from data.json
         displayPreviousContent(data);
     } catch (error) {
         console.error('Error fetching data.json:', error);
     }
+
+    // Display today's and tomorrow's content from the prompts array
+    displayPrompts(prompts);
 }
 
-function displayPrompts(data) {
-    const today = new Date().getDayOfYear() - 1;
-    const currentItem = data[today % data.length];
-    const nextItem = data[(today + 1) % data.length];
+        
+function displayPrompts(prompts) {
+    const today = new Date().getDayOfYear() - 1; // Adjust for 0-based indexing
+    const currentItem = prompts[today % prompts.length];
+    const nextItem = prompts[(today + 1) % prompts.length];
 
-    document.getElementById("title").textContent = `Day ${currentItem.day}: ${currentItem.noun}`;
+    // Format the day number with leading zeros
+    const currentDay = String(today + 1).padStart(3, '0'); // 1-based index
+    const nextDay = String(today + 2).padStart(3, '0');
+
+    document.getElementById("title").textContent = `Day ${currentDay}: ${currentItem.noun}`;
     document.getElementById("description").textContent = currentItem.description;
     document.getElementById("sneak-peek").setAttribute(
         "data-preview",
-        `Day ${nextItem.day}: ${nextItem.noun}`
+        `Day ${nextDay}: ${nextItem.noun}`
     );
 }
+
+
 
 function displayPreviousContent(data) {
     const dynamicContent = document.getElementById("dynamic-content");
@@ -674,10 +683,10 @@ function displayPreviousContent(data) {
 }
 
 Date.prototype.getDayOfYear = function () {
-    const start = new Date(this.getFullYear(), 0, 0);
+    const start = new Date(this.getFullYear(), 0, 1); // Start from January 1st
     const diff = this - start;
     const oneDay = 1000 * 60 * 60 * 24;
-    return Math.floor(diff / oneDay);
+    return Math.floor(diff / oneDay) + 1; // Add 1 to make it 1-based
 };
 
 // Fetch the JSON data and initialize the app
