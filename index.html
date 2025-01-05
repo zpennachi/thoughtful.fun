@@ -172,6 +172,14 @@ p {
             color: #999;
         }
         
+        .day-container {
+    margin-bottom: 24px; /* Add space between day containers */
+    padding: 16px;
+    border: 1px solid #ccc; /* Optional: Add a border for clarity */
+    border-radius: 8px; /* Optional: Rounded corners */
+    background-color: #fff; /* Optional: Background for better visibility */
+}
+
     </style>
 </head>
 <body>
@@ -625,9 +633,11 @@ p {
                 `Day ${nextItem.day}: ${nextItem.noun}`
             );
         }
-
 function displayPreviousContent() {
     const dynamicContent = document.getElementById("dynamic-content");
+
+    // Clear the content before adding new items to prevent duplication
+    dynamicContent.innerHTML = '';
 
     // Create a reversed copy of the database without mutating the original
     const reversedDatabase = [...database].reverse();
