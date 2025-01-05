@@ -625,25 +625,23 @@ p {
 
 
 
-        async function fetchData() {
+async function fetchData() {
     try {
         const response = await fetch('data.json');
         const data = await response.json();
 
-        // Use the data
-        displayPrompts(data.prompts);
-        displayPreviousContent(data.database);
+        // Pass the loaded data to the display functions
+        displayPrompts(data);
+        displayPreviousContent(data);
     } catch (error) {
         console.error('Error fetching data.json:', error);
     }
 }
 
-
-
-function displayPrompts(prompts) {
+function displayPrompts(data) {
     const today = new Date().getDayOfYear() - 1;
-    const currentItem = { ...prompts[today % prompts.length], day: today + 1 };
-    const nextItem = { ...prompts[(today + 1) % prompts.length], day: today + 2 };
+    const currentItem = data[today % data.length];
+    const nextItem = data[(today + 1) % data.length];
 
     document.getElementById("title").textContent = `Day ${currentItem.day}: ${currentItem.noun}`;
     document.getElementById("description").textContent = currentItem.description;
@@ -653,17 +651,16 @@ function displayPrompts(prompts) {
     );
 }
 
-
-        function displayPreviousContent(database) {
+function displayPreviousContent(data) {
     const dynamicContent = document.getElementById("dynamic-content");
 
     // Clear the content before adding new items to prevent duplication
     dynamicContent.innerHTML = '';
 
-    // Create a reversed copy of the database without mutating the original
-    const reversedDatabase = [...database].reverse();
+    // Create a reversed copy of the data without mutating the original
+    const reversedData = [...data].reverse();
 
-    reversedDatabase.forEach((item) => {
+    reversedData.forEach((item) => {
         const dayContainer = document.createElement("div");
         dayContainer.className = "day-container";
 
