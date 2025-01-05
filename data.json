@@ -19,54 +19,5 @@
         "description": "Footwear",
         "modelSrc": "365/003/003.glb",
         "imageSrcs": ["365/003/shoes3 (3).png"]
-    },
-    {
-        "day": "004",
-        "noun": "Lamp",
-        "description": "Light source",
-        "modelSrc": "365/004/lamp.glb",
-        "imageSrcs": ["365/004/lamp01.jpg"]
-    },
-    {
-        "day": "005",
-        "noun": "Notebook",
-        "description": "Writable pad",
-        "modelSrc": "365/005/notebook.glb",
-        "imageSrcs": ["365/005/notebook01.jpg"]
-    },
-    {
-        "day": "006",
-        "noun": "Bottle",
-        "description": "Container with neck",
-        "modelSrc": "365/006/bottle.glb",
-        "imageSrcs": ["365/006/bottle01.jpg", "365/006/bottle02.jpg"]
-    },
-    {
-        "day": "007",
-        "noun": "Ring",
-        "description": "Finger ornament",
-        "modelSrc": "365/007/ring.glb",
-        "imageSrcs": ["365/007/ring01.jpg"]
-    },
-    {
-        "day": "008",
-        "noun": "Mirror",
-        "description": "Reflective surface",
-        "modelSrc": "365/008/mirror.glb",
-        "imageSrcs": ["365/008/mirror01.jpg"]
-    },
-    {
-        "day": "009",
-        "noun": "Knife",
-        "description": "Cutting utensil",
-        "modelSrc": "365/009/knife.glb",
-        "imageSrcs": ["365/009/knife01.jpg", "365/009/knife02.jpg"]
-    },
-    {
-        "day": "010",
-        "noun": "Pillow",
-        "description": "Soft support",
-        "modelSrc": "365/010/pillow.glb",
-        "imageSrcs": ["365/010/pillow01.jpg"]
     }
 ]
