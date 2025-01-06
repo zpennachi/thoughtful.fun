@@ -659,9 +659,13 @@ function displayPreviousContent(data) {
         if (item.modelSrc) {
             const modelViewer = document.createElement("model-viewer");
             modelViewer.setAttribute("src", item.modelSrc);
+            modelViewer.setAttribute("ar environment-image", "365/evergreen/thoughtfulhdri.jpeg");
+
             modelViewer.setAttribute("camera-controls", "");
             modelViewer.setAttribute("auto-rotate", "");
             modelViewer.setAttribute("ar", "");
+
+            
             modelViewer.setAttribute("ar-modes", "webxr scene-viewer quick-look");
             modelViewer.setAttribute("disable-zoom", "");
             dayContainer.appendChild(modelViewer);
