@@ -660,7 +660,8 @@ function displayPreviousContent(data) {
             const modelViewer = document.createElement("model-viewer");
             modelViewer.setAttribute("src", item.modelSrc);
             modelViewer.setAttribute("environment-image", "365/evergreen/thoughtfulhdri.jpeg");
-
+            
+            modelViewer.setAttribute("exposure", "2");
             modelViewer.setAttribute("camera-controls", "");
             modelViewer.setAttribute("auto-rotate", "");
             modelViewer.setAttribute("ar", "");
