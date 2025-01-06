@@ -24,7 +24,7 @@
         "day": "004",
         "noun": "Mirror",
         "description": "Reflective Surface",
-        
+        "modelSrc": "365/004/merr.glb",
         "imageSrcs": ["365/004/mirror-sticker.png"]
     }
 ]
