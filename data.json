@@ -19,5 +19,12 @@
         "description": "Footwear",
         "modelSrc": "365/003/003.glb",
         "imageSrcs": ["365/003/shoes3 (3).png"]
+    },
+        {
+        "day": "004",
+        "noun": "Mirror",
+        "description": "Reflective Surface",
+        
+        "imageSrcs": ["365/004/mirror.png"]
     }
 ]
