@@ -1,0 +1,60 @@
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+
+<form id="uploadForm">
+  <label for="fileInput">Upload Your Work:</label>
+  <input type="file" id="fileInput" required />
+  <label for="promptDate">Prompt Date:</label>
+  <input type="date" id="promptDate" required />
+  <button type="submit">Upload</button>
+</form>
+<p id="status"></p>
+
+<script>
+  const supabaseUrl = 'YOUR_SUPABASE_URL';
+  const supabaseKey = 'YOUR_ANON_PUBLIC_KEY';
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+  document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const fileInput = document.getElementById('fileInput');
+    const promptDate = document.getElementById('promptDate').value;
+    const status = document.getElementById('status');
+    
+    if (fileInput.files.length === 0 || !promptDate) {
+      status.textContent = 'Please provide a file and date.';
+      return;
+    }
+    
+    const file = fileInput.files[0];
+    const fileName = `${promptDate}_${file.name}`;
+    
+    // Upload to Supabase Storage
+    const { data, error } = await supabase.storage
+      .from('portfolio-uploads')
+      .upload(fileName, file);
+    
+    if (error) {
+      status.textContent = `Upload failed: ${error.message}`;
+      return;
+    }
+
+    // Get the public URL
+    const { publicUrl } = supabase.storage.from('portfolio-uploads').getPublicUrl(fileName);
+
+    // Insert metadata into the database
+    const { error: dbError } = await supabase.from('submissions').insert([
+      { file_url: publicUrl, prompt_date: promptDate }
+    ]);
+
+    if (dbError) {
+      status.textContent = `Database update failed: ${dbError.message}`;
+      return;
+    }
+
+    status.textContent = 'Upload successful!';
+    fileInput.value = '';
+    promptDate.value = '';
+  });
+</script>
+
