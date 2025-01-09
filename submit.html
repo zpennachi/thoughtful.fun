@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Supabase Debug Test</title>
-  <!-- Load Supabase library -->
+  <!-- Supabase Library -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.9.1"></script>
 </head>
 <body>
@@ -17,24 +17,39 @@
   </form>
   <p id="status"></p>
 
-  <!-- Your custom script -->
+  <!-- Custom Script -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    (async () => {
+      // Wait for DOM content to load
+      await new Promise((resolve) => {
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+          resolve();
+        } else {
+          document.addEventListener('DOMContentLoaded', resolve);
+        }
+      });
+
       console.log('Initializing Supabase...');
       
       // Initialize Supabase
-      const supabaseUrl = 'https://yofgrvatwtrdaulmrooi.supabase.co';
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvZmdydmF0d3RyZGF1bG1yb29pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0NDM3MjIsImV4cCI6MjA1MjAxOTcyMn0.HqRANcQRziTI0WcVT9an6saceNnBorsDPwdD-RKDC88';
-      const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-      console.log('Supabase initialized:', supabase);
+      try {
+        const supabaseUrl = 'https://yofgrvatwtrdaulmrooi.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvZmdydmF0d3RyZGF1bG1yb29pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0NDM3MjIsImV4cCI6MjA1MjAxOTcyMn0.HqRANcQRziTI0WcVT9an6saceNnBorsDPwdD-RKDC88';
+        if (!supabase) throw new Error('Supabase library not loaded');
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        console.log('Supabase initialized:', supabase);
 
-      // Form submission handler
-      document.getElementById('uploadForm').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        console.log('Form submitted');
-        console.log('Using Supabase:', supabase);
-      });
-    });
+        // Attach form submission handler
+        document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+          event.preventDefault();
+          console.log('Form submitted');
+          console.log('Using Supabase:', supabase);
+        });
+      } catch (error) {
+        console.error('Error initializing Supabase:', error);
+        document.getElementById('status').textContent = 'Failed to initialize Supabase. Check the console for details.';
+      }
+    })();
   </script>
 </body>
 </html>
