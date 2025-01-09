@@ -11,8 +11,8 @@
 <p id="status"></p>
 
 <script>
-  const supabaseUrl = 'YOUR_SUPABASE_URL';
-  const supabaseKey = 'YOUR_ANON_PUBLIC_KEY';
+  const supabaseUrl = 'https://omyfzfiwjfgqiwrulaxd.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9teWZ6Zml3amZncWl3cnVsYXhkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0NDIwNDUsImV4cCI6MjA1MjAxODA0NX0.Kp-6biU_LDwHHRLkxUO_3T46DXKr92P5bB0MYlUt7Hc';
   const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
   document.getElementById('uploadForm').addEventListener('submit', async (event) => {
