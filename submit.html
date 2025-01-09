@@ -3,53 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Supabase Debug Test</title>
-  <!-- Supabase Library -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.9.1"></script>
+  <title>Airtable API Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .record {
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
-  <form id="uploadForm">
-    <label for="fileInput">Upload Your Work:</label>
-    <input type="file" id="fileInput" required />
-    <label for="promptDate">Prompt Date:</label>
-    <input type="date" id="promptDate" required />
-    <button type="submit">Upload</button>
-  </form>
-  <p id="status"></p>
+  <h1>Airtable Data</h1>
+  <div id="records-container"></div>
 
-  <!-- Custom Script -->
   <script>
-    (async () => {
-      // Wait for DOM content to load
-      await new Promise((resolve) => {
-        if (document.readyState === 'complete' || document.readyState === 'interactive') {
-          resolve();
-        } else {
-          document.addEventListener('DOMContentLoaded', resolve);
-        }
-      });
+    const apiKey = 'patF0uWztbMgZoUc6.693f0cac4f7be460a59eca901c674d55cbf48a9fc9486120285ad27be86029a';
+    const baseId = 'apppYCPZcC6sAnciy';
+    const tableName = 'table';
+    const apiUrl = `https://api.airtable.com/v0/${baseId}/${tableName}`;
 
-      console.log('Initializing Supabase...');
-      
-      // Initialize Supabase
+    async function fetchAirtableData() {
       try {
-        const supabaseUrl = 'https://yofgrvatwtrdaulmrooi.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvZmdydmF0d3RyZGF1bG1yb29pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0NDM3MjIsImV4cCI6MjA1MjAxOTcyMn0.HqRANcQRziTI0WcVT9an6saceNnBorsDPwdD-RKDC88';
-        if (!supabase) throw new Error('Supabase library not loaded');
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-        console.log('Supabase initialized:', supabase);
-
-        // Attach form submission handler
-        document.getElementById('uploadForm').addEventListener('submit', async (event) => {
-          event.preventDefault();
-          console.log('Form submitted');
-          console.log('Using Supabase:', supabase);
+        const response = await fetch(apiUrl, {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+          },
         });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        displayRecords(data.records);
       } catch (error) {
-        console.error('Error initializing Supabase:', error);
-        document.getElementById('status').textContent = 'Failed to initialize Supabase. Check the console for details.';
+        console.error('Error fetching data:', error);
       }
-    })();
+    }
+
+    function displayRecords(records) {
+      const container = document.getElementById('records-container');
+      records.forEach(record => {
+        const recordElement = document.createElement('div');
+        recordElement.className = 'record';
+
+        const dayNumber = record.fields['Day Number'] || 'N/A';
+        const name = record.fields['Name'] || 'N/A';
+
+        recordElement.innerHTML = `
+          <p><strong>Day Number:</strong> ${dayNumber}</p>
+          <p><strong>Name:</strong> ${name}</p>
+        `;
+        container.appendChild(recordElement);
+      });
+    }
+
+    fetchAirtableData();
   </script>
 </body>
 </html>
