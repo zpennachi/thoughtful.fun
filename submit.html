@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Supabase Debug Test</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.9.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.9.1" defer></script>
 </head>
 <body>
   <form id="uploadForm">
@@ -17,16 +17,18 @@
   <p id="status"></p>
 
   <script>
-    console.log('Initializing Supabase...');
-    const supabaseUrl = 'https://yofgrvatwtrdaulmrooi.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvZmdydmF0d3RyZGF1bG1yb29pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0NDM3MjIsImV4cCI6MjA1MjAxOTcyMn0.HqRANcQRziTI0WcVT9an6saceNnBorsDPwdD-RKDC88';
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-    console.log('Supabase initialized:', supabase);
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Initializing Supabase...');
+      const supabaseUrl = 'https://yofgrvatwtrdaulmrooi.supabase.co';
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvZmdydmF0d3RyZGF1bG1yb29pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0NDM3MjIsImV4cCI6MjA1MjAxOTcyMn0.HqRANcQRziTI0WcVT9an6saceNnBorsDPwdD-RKDC88';
+      const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+      console.log('Supabase initialized:', supabase);
 
-    document.getElementById('uploadForm').addEventListener('submit', async (event) => {
-      event.preventDefault();
-      console.log('Form submitted');
-      console.log('Using Supabase:', supabase);
+      document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        console.log('Form submitted');
+        console.log('Using Supabase:', supabase);
+      });
     });
   </script>
 </body>
