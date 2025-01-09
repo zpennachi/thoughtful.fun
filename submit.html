@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Supabase Debug Test</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.9.1" defer></script>
+  <!-- Load Supabase library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.9.1"></script>
 </head>
 <body>
   <form id="uploadForm">
@@ -16,14 +17,18 @@
   </form>
   <p id="status"></p>
 
+  <!-- Your custom script -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       console.log('Initializing Supabase...');
+      
+      // Initialize Supabase
       const supabaseUrl = 'https://yofgrvatwtrdaulmrooi.supabase.co';
       const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvZmdydmF0d3RyZGF1bG1yb29pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0NDM3MjIsImV4cCI6MjA1MjAxOTcyMn0.HqRANcQRziTI0WcVT9an6saceNnBorsDPwdD-RKDC88';
       const supabase = supabase.createClient(supabaseUrl, supabaseKey);
       console.log('Supabase initialized:', supabase);
 
+      // Form submission handler
       document.getElementById('uploadForm').addEventListener('submit', async (event) => {
         event.preventDefault();
         console.log('Form submitted');
