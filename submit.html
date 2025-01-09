@@ -1,60 +1,69 @@
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supabase Upload</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+  <form id="uploadForm">
+    <label for="fileInput">Upload Your Work:</label>
+    <input type="file" id="fileInput" required />
+    <label for="promptDate">Prompt Date:</label>
+    <input type="date" id="promptDate" required />
+    <button type="submit">Upload</button>
+  </form>
+  <p id="status"></p>
 
+  <script>
+    // Initialize Supabase client
+    const supabaseUrl = 'https://omyfzfiwjfgqiwrulaxd.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9teWZ6Zml3amZncWl3cnVsYXhkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0NDIwNDUsImV4cCI6MjA1MjAxODA0NX0.Kp-6biU_LDwHHRLkxUO_3T46DXKr92P5bB0MYlUt7Hc';
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-<form id="uploadForm">
-  <label for="fileInput">Upload Your Work:</label>
-  <input type="file" id="fileInput" required />
-  <label for="promptDate">Prompt Date:</label>
-  <input type="date" id="promptDate" required />
-  <button type="submit">Upload</button>
-</form>
-<p id="status"></p>
+    // Handle form submission
+    document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const fileInput = document.getElementById('fileInput');
+      const promptDate = document.getElementById('promptDate').value;
+      const status = document.getElementById('status');
+      
+      if (fileInput.files.length === 0 || !promptDate) {
+        status.textContent = 'Please provide a file and date.';
+        return;
+      }
+      
+      const file = fileInput.files[0];
+      const fileName = `${promptDate}_${file.name}`;
+      
+      // Upload to Supabase Storage
+      const { data, error } = await supabase.storage
+        .from('portfolio-uploads')
+        .upload(fileName, file);
+      
+      if (error) {
+        status.textContent = `Upload failed: ${error.message}`;
+        return;
+      }
 
-<script>
-  const supabaseUrl = 'https://omyfzfiwjfgqiwrulaxd.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9teWZ6Zml3amZncWl3cnVsYXhkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0NDIwNDUsImV4cCI6MjA1MjAxODA0NX0.Kp-6biU_LDwHHRLkxUO_3T46DXKr92P5bB0MYlUt7Hc';
-  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-console.log(supabase);
-  document.getElementById('uploadForm').addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const fileInput = document.getElementById('fileInput');
-    const promptDate = document.getElementById('promptDate').value;
-    const status = document.getElementById('status');
-    
-    if (fileInput.files.length === 0 || !promptDate) {
-      status.textContent = 'Please provide a file and date.';
-      return;
-    }
-    
-    const file = fileInput.files[0];
-    const fileName = `${promptDate}_${file.name}`;
-    
-    // Upload to Supabase Storage
-    const { data, error } = await supabase.storage
-      .from('portfolio-uploads')
-      .upload(fileName, file);
-    
-    if (error) {
-      status.textContent = `Upload failed: ${error.message}`;
-      return;
-    }
+      // Get the public URL
+      const { publicUrl } = supabase.storage.from('portfolio-uploads').getPublicUrl(fileName);
 
-    // Get the public URL
-    const { publicUrl } = supabase.storage.from('portfolio-uploads').getPublicUrl(fileName);
+      // Insert metadata into the database
+      const { error: dbError } = await supabase.from('submissions').insert([
+        { file_url: publicUrl, prompt_date: promptDate }
+      ]);
 
-    // Insert metadata into the database
-    const { error: dbError } = await supabase.from('submissions').insert([
-      { file_url: publicUrl, prompt_date: promptDate }
-    ]);
+      if (dbError) {
+        status.textContent = `Database update failed: ${dbError.message}`;
+        return;
+      }
 
-    if (dbError) {
-      status.textContent = `Database update failed: ${dbError.message}`;
-      return;
-    }
-
-    status.textContent = 'Upload successful!';
-    fileInput.value = '';
-    promptDate.value = '';
-  });
-</script>
-
+      status.textContent = 'Upload successful!';
+      fileInput.value = '';
+      promptDate.value = '';
+    });
+  </script>
+</body>
+</html>
