@@ -77,11 +77,10 @@
 <style>
 
         @import url('https://fonts.googleapis.com/css2?family=Doto:wght@400;900&display=swap');
-
 /* General body adjustments */
 body {
   font-family: 'Doto', monospace;
-  text-align: center; /* Center text for a cleaner mobile view */
+  text-align: center; /* Center text for a clean mobile view */
   padding: 16px;
   margin: 0;
   background-color: #fcfcfa;
@@ -101,36 +100,8 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin: 0 auto; /* Center the container horizontally */
+  margin: 0 auto;
   margin-bottom: 32px;
-}
-
-/* Horizontal container adjustments for mobile */
-.horizontal-container {
-  width: 100%;
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-align: center;
-}
-
-/* Marquee adjustments */
-.marquee-inner span {
-  font-size: 1rem;
-  white-space: nowrap;
-}
-
-@media (max-width: 768px) {
-  .marquee-inner span {
-    font-size: 0.9rem; /* Slightly smaller on tablets */
-  }
-}
-
-@media (max-width: 480px) {
-  .marquee-inner span {
-    font-size: 0.8rem; /* Smaller font on phones */
-  }
 }
 
 /* Entry item adjustments */
@@ -144,7 +115,8 @@ body {
   border-radius: 8px; /* Rounded corners */
   display: flex;
   flex-direction: column; /* Stack all elements vertically */
-  align-items: center; /* Center-align for a clean layout */
+  align-items: center;
+  text-align: center; /* Center-align for a clean layout */
 }
 
 /* Content layers */
@@ -154,6 +126,70 @@ body {
   position: relative; /* Ensure they layer on top */
   z-index: 1;
   width: 100%; /* Full-width content */
+}
+
+/* Adjust fonts for better readability */
+h1 {
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 16px 0;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 12px 0;
+}
+
+p {
+  font-size: 1.2rem; /* Larger text for better readability */
+  line-height: 1.5; /* Increased line height for readability */
+  margin: 8px 0;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 12px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  .entry-item {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  .entry-item {
+    padding: 14px;
+    margin: 16px 0;
+  }
 }
 
 /* Files container adjustments */
@@ -173,7 +209,7 @@ body {
   margin: 10px 0;
 }
 
-/* Model viewer adjustments for mobile */
+/* Model viewer adjustments */
 model-viewer {
   position: absolute;
   top: 0;
@@ -187,61 +223,14 @@ model-viewer {
 @media (max-width: 768px) {
   model-viewer {
     width: 100%; /* Full width for tablets */
-    height: 200px; /* Adjusted height for smaller screens */
+    height: 300px; /* Adjust height for smaller screens */
   }
 }
 
 @media (max-width: 480px) {
   model-viewer {
     width: 100%; /* Full width for phones */
-    height: 150px; /* Further reduce height for smaller phones */
-  }
-}
-
-/* Text adjustments for readability */
-h1 {
-  font-size: 1.8rem;
-  font-weight: 900;
-  margin: 16px 0;
-}
-
-h2 {
-  font-size: 1.2rem;
-  font-weight: 400;
-  margin: 12px 0;
-}
-
-p {
-  font-size: 1rem;
-  line-height: 1.4;
-  margin: 8px 0;
-}
-
-@media (max-width: 768px) {
-  h1 {
-    font-size: 1.5rem;
-  }
-
-  h2 {
-    font-size: 1rem;
-  }
-
-  p {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.2rem;
-  }
-
-  h2 {
-    font-size: 0.9rem;
-  }
-
-  p {
-    font-size: 0.8rem;
+    height: 250px; /* Further reduce height for smaller phones */
   }
 }
 
