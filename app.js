@@ -1,3 +1,4 @@
+
 // Initialize Supabase
 const supabaseUrl = 'https://yofgrvatwtrdaulmrooi.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvZmdydmF0d3RyZGF1bG1yb29pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0NDM3MjIsImV4cCI6MjA1MjAxOTcyMn0.HqRANcQRziTI0WcVT9an6saceNnBorsDPwdD-RKDC88';
@@ -345,3 +346,53 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('todays-prompt').textContent = 'Error loading today\'s prompt!';
   }
 });
+
+ document.addEventListener('DOMContentLoaded', () => {
+  const entryItems = document.querySelectorAll('.entry-item');
+
+  const loadContent = (entry) => {
+    // Load content for the visible entry
+    const idElement = entry.querySelector('p');
+    const nounElement = entry.querySelector('h3');
+    const descriptionElement = entry.querySelector('p:nth-of-type(2)');
+
+    if (!entry.dataset.loaded) {
+      // Simulate content loading (replace with actual data fetching logic if needed)
+      idElement.textContent = `ID: ${entry.dataset.id}`;
+      nounElement.textContent = `Noun: ${entry.dataset.noun}`;
+      descriptionElement.textContent = `Description: ${entry.dataset.description}`;
+      entry.dataset.loaded = true;
+    }
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          loadContent(entry.target);
+        }
+      });
+    },
+    {
+      root: null, // Use the viewport as the container
+      rootMargin: '0px',
+      threshold: 0.1, // Trigger when 10% of the element is visible
+    }
+  );
+
+  entryItems.forEach((item) => {
+    observer.observe(item);
+  });
+});
+
+document.getElementById('showSignInButton').addEventListener('click', () => {
+  const authSection = document.getElementById('auth-section');
+  const loginButton = document.getElementById('showSignInButton');
+
+  // Show the sign-in section
+  authSection.classList.remove('hidden');
+
+  // Hide the "Login :)" button
+  loginButton.classList.add('hidden');
+});
+
