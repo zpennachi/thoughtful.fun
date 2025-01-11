@@ -1,13 +1,18 @@
 
-
         @import url('https://fonts.googleapis.com/css2?family=Doto:wght@400;900&display=swap');
 
         body {
             font-family: 'Doto', monospace;
-
+            text-align: right;
+            padding: 16px;
+            margin: 0;
             background-color: #fcfcfa;
             color: #000000;
-
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
         }
     input {
       padding: 10px;
@@ -38,16 +43,38 @@
 .entry-item {
   position: relative;
   overflow: hidden; /* Prevent background overflow */
-  padding: 20px;
-  margin: 20px 0;
+  
+  margin: 20px -40px;
   background: none; /* Remove background color */
   border: none;
   height: auto; /* Set a fixed height for cards (adjust as needed) */
 }
 
+ @media (max-width: 768px) {
+  .entry-item {
+    height: 100vh; /* Make each card fill the viewport */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px; /* Add padding for readability */
+  }
+}
 
 
+/* Content layers */
+.entry-item h3,
+.entry-item p,
+.entry-item .files-container {
+  position: relative; /* Ensure they layer on top */
+  z-index: 1;
+}
 
+/* Files container */
+.files-container {
+  position: relative;
+  z-index: 1;
+}
 
 /* Full-span background for <model-viewer> */
 model-viewer {
@@ -72,6 +99,8 @@ model-viewer {
     margin-bottom: 32px;
 }
 
+  
+  
 .horizontal-container {
     width: 100%;
     justify-content: space-between;
@@ -82,8 +111,14 @@ model-viewer {
 }
 
 model-viewer {
-    width: 100%;
-    min-height: 100vh;
+    width: 60%;
+    min-height: 80vh;
+}
+
+@media (max-width: 768px) {
+    model-viewer {
+        width: 100%; /* Full width on smaller screens */
+    }
 }
 
 .image-container {
@@ -130,7 +165,27 @@ p {
 }
 
         
-        
+
+                .sneak-peek {
+            text-decoration: underline dotted;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .sneak-peek:hover::after {
+            content: attr(data-preview);
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f9f9f9;
+            color: #000000;
+            
+            border-radius: 5px;
+            font-size: 0.9em;
+            white-space: nowrap;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
      .marquee {
   overflow: hidden;
@@ -194,4 +249,60 @@ p {
     border: 1px solid #ccc; /* Optional: Add a border for clarity */
     border-radius: 8px; /* Optional: Rounded corners */
     background-color: #fff; /* Optional: Background for better visibility */
+}
+
+
+  #todays-prompt {
+  font-size: 1.5rem; /* Larger font size for the container */
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+#prompt-noun {
+  font-size: 1.8rem; /* Larger heading size for the noun */
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#prompt-description {
+  font-size: 1.2rem; /* Smaller font size for description */
+  font-style: italic;
+  font-weight: normal;
+  color: #555; /* Subtle color for description */
+}
+#todays-prompt {
+  font-size: 1.5rem; /* Larger font size for the container */
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+#prompt-noun {
+  font-size: 1.8rem; /* Larger heading size for the noun */
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#prompt-description {
+  font-size: 1.2rem; /* Smaller font size for description */
+  font-style: italic;
+  font-weight: normal;
+  color: #555; /* Subtle color for description */
+}
+.hidden {
+  display: none;
+}
+
+#showSignInButton {
+  padding: 5px 10px;
+  font-size: 1rem;
+  color: white;
+  background-color: #1100FF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+#showSignInButton:hover {
+  background-color: #0056b3;
 }
