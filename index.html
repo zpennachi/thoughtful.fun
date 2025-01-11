@@ -43,9 +43,11 @@
 <div id="todays-prompt" style="font-size: 1.2rem; font-weight: bold;">
   <p id="prompt-noun"></p>
   <p id="prompt-description"></p>
+<!-- Sign-In Trigger Button -->
+<button id="showSignInButton">Login :)</button>
 
 <!-- Authentication Section -->
-<div id="auth-section">
+<div id="auth-section" class="hidden">
   <div id="sign-in">
     <h2>Sign In</h2>
     <input type="email" id="signInEmail" placeholder="Email" required>
@@ -57,6 +59,8 @@
     <p>Welcome, <span id="user-email"></span>!</p>
     <button id="logOutButton">Log Out</button>
   </div>
+</div>
+
 </div>
 <!-- File Upload Section -->
 <div id="upload-section">
@@ -80,6 +84,7 @@
   <h2>Entries</h2>
   <ul id="entries-list"></ul>
 </div>
+
 
  <script src="app.js"></script>
 
