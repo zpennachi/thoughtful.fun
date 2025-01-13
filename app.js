@@ -163,7 +163,6 @@ console.log('Selected ID:', selectedId);
     alert('Unexpected error: ' + err.message);
   }
 });
-
 async function loadEntries() {
   const entriesList = document.getElementById('entries-list');
   entriesList.innerHTML = ''; // Clear any existing content
@@ -174,7 +173,7 @@ async function loadEntries() {
       .select('id, noun, description, file') // Fetch all fields
       .not('file', 'is', null) // Exclude rows with no files
       .neq('file', '{}') // Exclude rows with empty arrays
-      .order('id', { ascending: true }); // Sort by ID descending
+      .order('id', { ascending: false }); // Sort by ID descending
 
     if (error) {
       console.error('Error fetching entries:', error.message);
@@ -329,7 +328,7 @@ async function loadEntries() {
       .select('id, noun, description, file')
       .not('file', 'is', null)
       .neq('file', '{}')
-      .order('id', { ascending: false});
+      .order('id', { ascending: true });
 
     if (error) {
       console.error('Error fetching entries:', error.message);
@@ -377,7 +376,6 @@ entry.file.forEach((fileUrl) => {
         modelViewer.cameraControls = true;
         modelViewer.style.position = 'absolute';
         modelViewer.style.top = '0';
-       modelViewer.setAttribute('interaction-prompt', 'none');
         modelViewer.style.left = '0';
         modelViewer.style.width = '100%';
         modelViewer.style.height = '100%';
@@ -494,3 +492,40 @@ document.getElementById('showSignInButton').addEventListener('click', () => {
   loginButton.classList.add('hidden');
 });
 
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const today = new Date();
+        const startOfYear = new Date(today.getFullYear(), 0, 0);
+        const diff = today - startOfYear;
+        const oneDay = 1000 * 60 * 60 * 24;
+        const dayOfYear = Math.floor(diff / oneDay);
+
+        // Fetch today's prompt
+        const { data: promptEntry, error } = await mySupabaseClient
+            .from('365')
+            .select('noun, description')
+            .eq('id', dayOfYear)
+            .single();
+
+        if (error || !promptEntry) {
+            console.error('Error fetching today\'s prompt:', error?.message || 'No data found');
+            document.getElementById('todays-prompt').textContent = 'No prompt found for today!';
+            return;
+        }
+
+        // Display the noun and description
+        const promptNoun = document.getElementById('prompt-noun');
+        const promptDescription = document.getElementById('prompt-description');
+        promptNoun.textContent = `Today's Prompt: ${promptEntry.noun}`;
+        promptDescription.textContent = promptEntry.description;
+        promptDescription.style.fontStyle = 'italic';
+
+        console.log('Prompt Entry:', promptEntry); // Debugging
+
+        // Load the entries list after displaying today's prompt
+        loadEntries();
+    } catch (err) {
+        console.error('Unexpected error:', err.message);
+        document.getElementById('todays-prompt').textContent = 'Error loading today\'s prompt!';
+    }
+});
