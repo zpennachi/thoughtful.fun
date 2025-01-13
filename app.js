@@ -173,7 +173,7 @@ async function loadEntries() {
       .select('id, noun, description, file') // Fetch all fields
       .not('file', 'is', null) // Exclude rows with no files
       .neq('file', '{}') // Exclude rows with empty arrays
-      .order('id', { ascending: false }); // Sort by ID descending
+      .order('id', { ascending: true }); // Sort by ID descending
 
     if (error) {
       console.error('Error fetching entries:', error.message);
