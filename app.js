@@ -376,6 +376,7 @@ entry.file.forEach((fileUrl) => {
         modelViewer.cameraControls = true;
         modelViewer.style.position = 'absolute';
         modelViewer.style.top = '0';
+       modelViewer.setAttribute('interaction-prompt', 'none');
         modelViewer.style.left = '0';
         modelViewer.style.width = '100%';
         modelViewer.style.height = '100%';
