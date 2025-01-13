@@ -329,7 +329,7 @@ async function loadEntries() {
       .select('id, noun, description, file')
       .not('file', 'is', null)
       .neq('file', '{}')
-      .order('id', { ascending: true });
+      .order('id', { ascending: false});
 
     if (error) {
       console.error('Error fetching entries:', error.message);
