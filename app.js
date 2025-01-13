@@ -1,4 +1,4 @@
-<script>
+
 // Initialize Supabase
 const supabaseUrl = 'https://yofgrvatwtrdaulmrooi.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvZmdydmF0d3RyZGF1bG1yb29pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0NDM3MjIsImV4cCI6MjA1MjAxOTcyMn0.HqRANcQRziTI0WcVT9an6saceNnBorsDPwdD-RKDC88';
@@ -492,4 +492,3 @@ document.getElementById('showSignInButton').addEventListener('click', () => {
   loginButton.classList.add('hidden');
 });
 
-</script>
