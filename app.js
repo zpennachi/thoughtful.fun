@@ -263,21 +263,35 @@ async function loadEntries() {
   }
 }
 
-function renderFile(fileUrl) {
+// Function to render image thumbnails and attach lightbox
+function renderFile(fileUrl, entryId, index) {
   const fileExtension = fileUrl.split('.').pop().toLowerCase();
 
   if (['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'].includes(fileExtension)) {
-    // Render image
+    const columnDiv = document.createElement('div');
+    columnDiv.classList.add('column');
+
     const img = document.createElement('img');
     img.src = fileUrl;
-    img.alt = 'Image file';
-    img.style.maxWidth = '200px';
-    img.style.margin = '10px';
-    return img;
+    img.alt = `Image ${index + 1} for Entry ${entryId}`;
+    img.classList.add('hover-shadow');
+    img.onclick = () => {
+      openModal(entryId);
+      currentSlide(index + 1, entryId);
+    };
+
+    columnDiv.appendChild(img);
+    return columnDiv;
   }
 
+  // Handle non-image files
+  return renderNonImageFile(fileUrl);
+}
+
+function renderNonImageFile(fileUrl) {
+  const fileExtension = fileUrl.split('.').pop().toLowerCase();
+
   if (['mp3', 'wav', 'ogg'].includes(fileExtension)) {
-    // Render audio
     const audio = document.createElement('audio');
     audio.src = fileUrl;
     audio.controls = true;
@@ -286,7 +300,6 @@ function renderFile(fileUrl) {
   }
 
   if (['mp4', 'webm', 'ogg'].includes(fileExtension)) {
-    // Render video
     const video = document.createElement('video');
     video.src = fileUrl;
     video.controls = true;
@@ -295,94 +308,177 @@ function renderFile(fileUrl) {
     return video;
   }
 
-  // Skip .glb/.gltf files (handled as background in loadEntries)
-
-  // Render non-media file as a URL
   const link = document.createElement('a');
   link.href = fileUrl;
-  link.textContent = 'Download File';
+  link.textContent = '';
   link.target = '_blank';
   link.style.display = 'block';
   link.style.margin = '10px';
   return link;
 }
 
+// Function to dynamically load entries and their lightboxes
+async function loadEntries() {
+  const entriesList = document.getElementById('entries-list');
+  entriesList.innerHTML = ''; // Clear existing content
 
-document.addEventListener('DOMContentLoaded', async () => {
   try {
-    // Get today's date
-    const today = new Date();
-
-    // Calculate the day of the year (1 = Jan 1, 2 = Jan 2, etc.)
-    const startOfYear = new Date(today.getFullYear(), 0, 0);
-    const diff = today - startOfYear;
-    const oneDay = 1000 * 60 * 60 * 24; // Milliseconds in a day
-    const dayOfYear = Math.floor(diff / oneDay);
-
-    // Fetch the corresponding entry for today's date
-    const { data: promptEntry, error } = await mySupabaseClient
+    const { data: entries, error } = await mySupabaseClient
       .from('365')
-      .select('noun, description')
-      .eq('id', dayOfYear)
-      .single(); // We expect only one result
+      .select('id, noun, description, file')
+      .not('file', 'is', null)
+      .neq('file', '{}')
+      .order('id', { ascending: true });
 
     if (error) {
-      console.error('Error fetching today\'s prompt:', error.message);
-      document.getElementById('todays-prompt').textContent = 'No prompt found for today!';
+      console.error('Error fetching entries:', error.message);
+      alert('Failed to load entries: ' + error.message);
       return;
     }
 
-    // Display the noun and description for today's date
-    const promptNoun = document.getElementById('prompt-noun');
-    const promptDescription = document.getElementById('prompt-description');
-    promptNoun.textContent = `todays prompt: ${promptEntry.noun}`;
-    promptDescription.textContent = ` ${promptEntry.description}`;
-      promptDescription.style.fontStyle = 'italic';
+    if (entries.length === 0) {
+      entriesList.innerHTML = '<li>No entries with files found.</li>';
+      return;
+    }
 
-    // Load the entries as usual
-    loadEntries();
-  } catch (err) {
-    console.error('Unexpected error:', err.message);
-    document.getElementById('todays-prompt').textContent = 'Error loading today\'s prompt!';
-  }
+    entries.forEach((entry) => {
+      const entryItem = document.createElement('li');
+      entryItem.classList.add('entry-item');
+
+      const idElement = document.createElement('p');
+      idElement.textContent = `ID: ${entry.id}`;
+      idElement.style.fontWeight = 'bold';
+
+      const noun = document.createElement('h3');
+      noun.textContent = entry.noun;
+
+      const description = document.createElement('p');
+      description.textContent = entry.description;
+
+      const filesContainer = document.createElement('div');
+      filesContainer.classList.add('files-container');
+
+      const modalDiv = createModal(entry);
+
+      // Render files and append to container
+      entry.file.forEach((fileUrl, index) => {
+        const fileElement = renderFile(fileUrl, entry.id, index);
+        filesContainer.appendChild(fileElement);
+      });
+      
+entry.file.forEach((fileUrl) => {
+    if (fileUrl.endsWith('.glb') || fileUrl.endsWith('.gltf')) {
+        const modelViewer = document.createElement('model-viewer');
+        modelViewer.src = fileUrl;
+        modelViewer.alt = '3D Model';
+        modelViewer.autoplay = true;
+        modelViewer.autoRotate = true;
+        modelViewer.cameraControls = true;
+        modelViewer.style.position = 'absolute';
+        modelViewer.style.top = '0';
+        modelViewer.style.left = '0';
+        modelViewer.style.width = '100%';
+        modelViewer.style.height = '100%';
+        modelViewer.style.zIndex = '-1';
+        entryItem.appendChild(modelViewer);
+    }
 });
 
- document.addEventListener('DOMContentLoaded', () => {
-  const entryItems = document.querySelectorAll('.entry-item');
+      // Append content
+      entryItem.appendChild(idElement);
+      entryItem.appendChild(noun);
+      entryItem.appendChild(description);
+      entryItem.appendChild(filesContainer);
+      entryItem.appendChild(modalDiv);
 
-  const loadContent = (entry) => {
-    // Load content for the visible entry
-    const idElement = entry.querySelector('p');
-    const nounElement = entry.querySelector('h3');
-    const descriptionElement = entry.querySelector('p:nth-of-type(2)');
+      entriesList.appendChild(entryItem);
+    });
+  } catch (err) {
+    console.error('Unexpected error:', err.message);
+    alert('Unexpected error: ' + err.message);
+  }
+}
 
-    if (!entry.dataset.loaded) {
-      // Simulate content loading (replace with actual data fetching logic if needed)
-      idElement.textContent = `ID: ${entry.dataset.id}`;
-      nounElement.textContent = `Noun: ${entry.dataset.noun}`;
-      descriptionElement.textContent = `Description: ${entry.dataset.description}`;
-      entry.dataset.loaded = true;
-    }
-  };
+// Function to create the modal structure for a lightbox
+function createModal(entry) {
+  const modal = document.createElement('div');
+  modal.id = `modal-${entry.id}`;
+  modal.classList.add('modal');
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          loadContent(entry.target);
-        }
-      });
-    },
-    {
-      root: null, // Use the viewport as the container
-      rootMargin: '0px',
-      threshold: 0.1, // Trigger when 10% of the element is visible
-    }
+  const closeBtn = document.createElement('span');
+  closeBtn.classList.add('close', 'cursor');
+  closeBtn.innerHTML = '&times;';
+  closeBtn.onclick = () => closeModal(entry.id);
+
+  const modalContent = document.createElement('div');
+  modalContent.classList.add('modal-content');
+
+  entry.file.forEach((fileUrl, index) => {
+    const slideDiv = document.createElement('div');
+    slideDiv.classList.add('mySlides', `entry-${entry.id}`);
+    slideDiv.style.display = 'none';
+
+    const numberText = document.createElement('div');
+    numberText.classList.add('numbertext');
+    numberText.textContent = `${index + 1} / ${entry.file.length}`;
+
+    const img = document.createElement('img');
+    img.src = fileUrl;
+    img.style.width = '100%';
+
+    slideDiv.appendChild(numberText);
+    slideDiv.appendChild(img);
+    modalContent.appendChild(slideDiv);
+  });
+
+  const prevBtn = document.createElement('a');
+  prevBtn.classList.add('prev');
+  prevBtn.innerHTML = '&#10094;';
+  prevBtn.onclick = () => plusSlides(-1, entry.id);
+
+  const nextBtn = document.createElement('a');
+  nextBtn.classList.add('next');
+  nextBtn.innerHTML = '&#10095;';
+  nextBtn.onclick = () => plusSlides(1, entry.id);
+
+  modal.appendChild(closeBtn);
+  modal.appendChild(modalContent);
+  modal.appendChild(prevBtn);
+  modal.appendChild(nextBtn);
+
+  return modal;
+}
+
+// Lightbox controls
+function openModal(entryId) {
+  document.getElementById(`modal-${entryId}`).style.display = 'block';
+}
+
+function closeModal(entryId) {
+  document.getElementById(`modal-${entryId}`).style.display = 'none';
+}
+
+function plusSlides(n, entryId) {
+  const slides = document.querySelectorAll(`.entry-${entryId}`);
+  let currentIndex = Array.from(slides).findIndex(
+    (slide) => slide.style.display === 'block'
   );
 
-  entryItems.forEach((item) => {
-    observer.observe(item);
-  });
+  currentIndex = (currentIndex + n + slides.length) % slides.length;
+
+  slides.forEach((slide) => (slide.style.display = 'none'));
+  slides[currentIndex].style.display = 'block';
+}
+
+function currentSlide(n, entryId) {
+  const slides = document.querySelectorAll(`.entry-${entryId}`);
+  slides.forEach((slide) => (slide.style.display = 'none'));
+  slides[n - 1].style.display = 'block';
+}
+
+// Initialize entries on page load
+document.addEventListener('DOMContentLoaded', () => {
+  loadEntries();
 });
 
 document.getElementById('showSignInButton').addEventListener('click', () => {
@@ -392,7 +488,6 @@ document.getElementById('showSignInButton').addEventListener('click', () => {
   // Show the sign-in section
   authSection.classList.remove('hidden');
 
-  // Hide the "Login :)" button
+  // Optionally hide the "Login :)" button
   loginButton.classList.add('hidden');
 });
-
