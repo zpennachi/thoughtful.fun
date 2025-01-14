@@ -522,8 +522,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         console.log('Prompt Entry:', promptEntry); // Debugging
 
-        // Load the entries list after displaying today's prompt
-        loadEntries();
     } catch (err) {
         console.error('Unexpected error:', err.message);
         document.getElementById('todays-prompt').textContent = 'Error loading today\'s prompt!';
