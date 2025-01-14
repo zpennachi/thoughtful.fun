@@ -58,7 +58,7 @@ async function populateDropdown() {
     const { data: entries, error } = await mySupabaseClient
       .from('365')
       .select('id, noun, file')
-      .order('id', { ascending: true }); // Ensure a consistent order
+      .order('id', { ascending: false }); // Ensure a consistent order
 
     if (error) {
       console.error('Error fetching entries:', error.message);
@@ -173,7 +173,7 @@ async function loadEntries() {
       .select('id, noun, description, file') // Fetch all fields
       .not('file', 'is', null) // Exclude rows with no files
       .neq('file', '{}') // Exclude rows with empty arrays
-      .order('id', { ascending: true }); // Sort by ID descending
+      .order('id', { ascending: false }); // Sort by ID descending
 
     if (error) {
       console.error('Error fetching entries:', error.message);
@@ -328,7 +328,7 @@ async function loadEntries() {
       .select('id, noun, description, file')
       .not('file', 'is', null)
       .neq('file', '{}')
-      .order('id', { ascending: true });
+      .order('id', { ascending: false });
 
     if (error) {
       console.error('Error fetching entries:', error.message);
