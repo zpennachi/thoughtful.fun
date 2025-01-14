@@ -208,8 +208,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Load the entries list after displaying today's prompt
         loadEntries();
-    } catch (err) {
-        console.error('Unexpected error:', err.message);
-        document.getElementById('todays-prompt').textContent = 'Error loading today\'s prompt!';
-    }
+    }    }
 });
