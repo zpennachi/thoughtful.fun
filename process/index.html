@@ -43,42 +43,5 @@
   <p id="prompt-description"></p>
 <!-- Sign-In Trigger Button -->
 <button id="showSignInButton">Login :)</button>
-
-<!-- Authentication Section -->
-<div id="auth-section" class="hidden">
-  <div id="sign-in">
-    <h2>Sign In</h2>
-    <input type="email" id="signInEmail" placeholder="Email" required>
-    <input type="password" id="signInPassword" placeholder="Password" required>
-    <button id="signInButton">Sign In</button>
-  </div>
-
-  <div id="logged-in" class="hidden">
-    <p>Welcome, <span id="user-email"></span>!</p>
-    <button id="logOutButton">Log Out</button>
-  </div>
-</div>
-
-</div>
-<!-- File Upload Section -->
-<div id="upload-section">
-  <h2>Upload a File</h2>
-  <form id="uploadForm">
-    <!-- Dropdown for selecting an entry -->
-    <label for="entryDropdown">Select Entry:</label>
-    <select id="entryDropdown" required>
-      <option value="" disabled selected>Select an entry</option>
-    </select>
-    
-    <!-- File input -->
-    <input type="file" id="fileInput" required />
-    <button type="submit">Upload File</button>
-  </form>
-  <div id="output"></div>
-</div>
-
-           <script src="app.js"></script>
-
-      
        </body>
 </html>
