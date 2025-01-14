@@ -1,0 +1,81 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>thoughtful.fun</title>
+  <link rel="stylesheet" href="styles.css">
+
+
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="horizontal-container">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="9.41177" cy="9.41177" r="9.41177" fill="#1100FF"/>
+                <circle cx="9.41177" cy="32" r="9.41177" fill="#1100FF"/>
+                <circle cx="9.41177" cy="54.5882" r="9.41177" fill="#1100FF"/>
+                <circle cx="32" cy="9.41177" r="9.41177" fill="#1100FF"/>
+                <circle cx="32" cy="32" r="9.41177" fill="#1100FF"/>
+                <circle cx="54.5882" cy="9.41177" r="9.41177" fill="#1100FF"/>
+                <circle cx="54.5882" cy="32" r="9.41177" fill="#1100FF"/>
+            </svg>
+        </div>
+        <h1>thoughtful.fun</h1>
+    
+
+
+          <div class="marquee">
+    <div class="marquee-inner">
+      <span>have fun, be thoughtful, be kind :)</span>
+      <span>have fun, be thoughtful, be kind :)</span>
+      <span>have fun, be thoughtful, be kind :)</span>
+      <!-- Duplicate content -->
+      <span>have fun, be thoughtful, be kind :)</span>
+      <span>have fun, be thoughtful, be kind :)</span>
+      <span>have fun, be thoughtful, be kind :)</span>
+    </div>
+  </div>
+
+<div id="todays-prompt" style="font-size: 1.2rem; font-weight: bold;">
+  <p id="prompt-noun"></p>
+  <p id="prompt-description"></p>
+<!-- Sign-In Trigger Button -->
+<button id="showSignInButton">Login :)</button>
+
+<!-- Authentication Section -->
+<div id="auth-section" class="hidden">
+  <div id="sign-in">
+    <h2>Sign In</h2>
+    <input type="email" id="signInEmail" placeholder="Email" required>
+    <input type="password" id="signInPassword" placeholder="Password" required>
+    <button id="signInButton">Sign In</button>
+  </div>
+
+  <div id="logged-in" class="hidden">
+    <p>Welcome, <span id="user-email"></span>!</p>
+    <button id="logOutButton">Log Out</button>
+  </div>
+</div>
+
+</div>
+<!-- File Upload Section -->
+<div id="upload-section">
+  <h2>Upload a File</h2>
+  <form id="uploadForm">
+    <!-- Dropdown for selecting an entry -->
+    <label for="entryDropdown">Select Entry:</label>
+    <select id="entryDropdown" required>
+      <option value="" disabled selected>Select an entry</option>
+    </select>
+    
+    <!-- File input -->
+    <input type="file" id="fileInput" required />
+    <button type="submit">Upload File</button>
+  </form>
+  <div id="output"></div>
+</div>
+
+       </body>
+</html>
