@@ -58,7 +58,7 @@ async function populateDropdown() {
     const { data: entries, error } = await mySupabaseClient
       .from('365')
       .select('id, noun, file')
-      .order('id', { ascending: false }); // Ensure a consistent order
+      .order('id', { ascending: true }); // Ensure a consistent order
 
     if (error) {
       console.error('Error fetching entries:', error.message);
