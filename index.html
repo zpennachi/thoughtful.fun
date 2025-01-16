@@ -12,6 +12,7 @@
 <body>
 
 
+
   
 <div class="main">
 
@@ -52,7 +53,7 @@
   </div>
 
   <div id="logged-in" class="hidden">
-    <p><span id="user-email"></span>!</p>
+    <p><span id="user-email"></span>hiii</p>
     <button id="logOutButton">Log Out</button>
   </div>
 </div>
@@ -68,10 +69,9 @@
   
 <!-- File Upload Section -->
 <div id="upload-section">
-  <h2>Upload a File</h2>
   <form id="uploadForm">
     <!-- Dropdown for selecting an entry -->
-    <label for="entryDropdown">Select Entry:</label>
+    <label for="entryDropdown"></label>
     <select id="entryDropdown" required>
       <option value="" disabled selected>Select an entry</option>
     </select>
@@ -88,6 +88,21 @@
 <div class="container">
   <ul id="entries-list"></ul>
 </div>      
+
+  
+  <div id="current-entry-box" style="
+  position: fixed;
+  top: 64px;
+  right: 10px;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  font-size: 1rem;
+  width: 300px;
+                                     display: none;
+">Current Entry: None</div>
 
 
       <script src="app.js"></script>
