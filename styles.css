@@ -91,6 +91,7 @@ model-viewer {
   position: fixed;
   bottom: 0;
   width: 100%;
+    box-sizing: border-box;
   max-width: 900px;
   padding: 1rem;
   background: rgba(17, 0, 255, 0.8);
