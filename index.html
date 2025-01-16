@@ -10,8 +10,12 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="horizontal-container">
+
+
+  
+<div class="main">
+
+<div class="horizontal-container">
             <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="9.41177" cy="9.41177" r="9.41177" fill="#1100FF"/>
                 <circle cx="9.41177" cy="32" r="9.41177" fill="#1100FF"/>
@@ -20,13 +24,9 @@
                 <circle cx="32" cy="32" r="9.41177" fill="#1100FF"/>
                 <circle cx="54.5882" cy="9.41177" r="9.41177" fill="#1100FF"/>
                 <circle cx="54.5882" cy="32" r="9.41177" fill="#1100FF"/>
-            </svg>
-        </div>
-        <h1>thoughtful.fun</h1>
-    
-
-
-          <div class="marquee">
+            </svg> 
+          
+<div class="marquee">
     <div class="marquee-inner">
       <span>have fun, be thoughtful, be kind :)</span>
       <span>have fun, be thoughtful, be kind :)</span>
@@ -37,29 +37,35 @@
       <span>have fun, be thoughtful, be kind :)</span>
     </div>
   </div>
+  <!-- Sign-In Trigger Button -->
 
-<div id="todays-prompt" style="font-size: 1.2rem; font-weight: bold;">
-  <p id="prompt-noun"></p>
-  <p id="prompt-description"></p>
+  
 <!-- Sign-In Trigger Button -->
 <button id="showSignInButton">Login :)</button>
 
 <!-- Authentication Section -->
 <div id="auth-section" class="hidden">
   <div id="sign-in">
-    <h2>Sign In</h2>
     <input type="email" id="signInEmail" placeholder="Email" required>
     <input type="password" id="signInPassword" placeholder="Password" required>
     <button id="signInButton">Sign In</button>
   </div>
 
   <div id="logged-in" class="hidden">
-    <p>Welcome, <span id="user-email"></span>!</p>
+    <p><span id="user-email"></span>!</p>
     <button id="logOutButton">Log Out</button>
   </div>
 </div>
-
+        </div>
+  
+<div class="container">
+      <div class="empty-nav"> </div>
+  
+<div id="todays-prompt" style="font-size: 1.2rem; font-weight: bold;">
+  <p id="prompt-noun"></p>
+  <p id="prompt-description"></p>
 </div>
+  
 <!-- File Upload Section -->
 <div id="upload-section">
   <h2>Upload a File</h2>
@@ -77,11 +83,12 @@
   <div id="output"></div>
 </div>
 
-
-<div id="content-container">
-  <h2>Entries</h2>
-  <ul id="entries-list"></ul>
 </div>
+  
+<div class="container">
+  <ul id="entries-list"></ul>
+</div>      
+
 
       <script src="app.js"></script>
 
