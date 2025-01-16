@@ -15,7 +15,7 @@ async function checkAuthState() {
   const { data: { user } } = await mySupabaseClient.auth.getUser();
   if (user) {
     // User is signed in
-    userEmailSpan.textContent = `Welcome, ${user.email}!`;
+    userEmailSpan.textContent = `Yooooo whats up ${user.email}! Great to see u`;
     loggedInSection.classList.remove('hidden');
     signInSection.classList.add('hidden');
     uploadSection.classList.remove('hidden'); // Show upload section
@@ -202,27 +202,6 @@ async function loadEntries() {
         year: 'numeric',
       });
 
-      // Add <model-viewer> as the background if a .glb/.gltf file exists
-      if (entry.file.some((url) => url.endsWith('.glb') || url.endsWith('.gltf'))) {
-        const modelUrl = entry.file.find((url) => url.endsWith('.glb') || url.endsWith('.gltf'));
-        const modelViewer = document.createElement('model-viewer');
-        modelViewer.src = modelUrl;
-        modelViewer.alt = '3D Model';
-        modelViewer.autoplay = true;
-        modelViewer.cameraControls = true;
-        modelViewer.autoRotate = true;
-        modelViewer.setAttribute('camera-orbit', '0deg 75deg 1.5m');
-        modelViewer.setAttribute('min-camera-orbit', 'auto auto 1m');
-        modelViewer.setAttribute('interaction-prompt', 'none');
-        modelViewer.style.position = 'absolute';
-        modelViewer.style.top = '0';
-        modelViewer.style.left = '0';
-        modelViewer.style.width = '100%';
-        modelViewer.style.height = '100%';
-        modelViewer.style.zIndex = '-1';
-        modelViewer.style.objectFit = 'cover';
-        entryItem.appendChild(modelViewer);
-      }
 
       // Add content
       const idElement = document.createElement('p');
@@ -295,7 +274,6 @@ function renderNonImageFile(fileUrl) {
     const audio = document.createElement('audio');
     audio.src = fileUrl;
     audio.controls = true;
-    audio.style.margin = '10px';
     return audio;
   }
 
@@ -304,7 +282,6 @@ function renderNonImageFile(fileUrl) {
     video.src = fileUrl;
     video.controls = true;
     video.style.maxWidth = '300px';
-    video.style.margin = '10px';
     return video;
   }
 
@@ -372,15 +349,17 @@ entry.file.forEach((fileUrl) => {
         modelViewer.src = fileUrl;
         modelViewer.alt = '3D Model';
         modelViewer.autoplay = true;
+      modelViewer.disableZoom = true;
         modelViewer.autoRotate = true;
         modelViewer.cameraControls = true;
-        modelViewer.style.position = 'absolute';
+        modelViewer.style.position = 'relative';
       modelViewer.setAttribute('interaction-prompt', 'none');
         modelViewer.style.top = '0';
         modelViewer.style.left = '0';
         modelViewer.style.width = '100%';
-        modelViewer.style.height = '100%';
-        modelViewer.style.zIndex = '-1';
+      modelViewer.style.maxWidth = '900px';
+        modelViewer.style.height = '100vh';
+        modelViewer.style.zIndex = '11';
         entryItem.appendChild(modelViewer);
     }
 });
