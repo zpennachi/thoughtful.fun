@@ -16,22 +16,29 @@ input, button {
 }
 
 input {
-    border: 1px solid #ddd;
+
+  width: 100px;
 }
 
 button {
     color: white;
-    background-color: #1100FF;
+    background-color: #000000;
     border: none;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
 }
 
 .hidden {
     display: none;
+}
+
+.entry-item {
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
 }
 
 
@@ -76,11 +83,20 @@ model-viewer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-sizing: border-box; /* Include padding in width calculations */
+    box-sizing: border-box;
   margin-top: -.5rem;
 }
 
-
+#upload-section {
+position: fixed;
+  bottom: 0px;
+  width: 100%;
+  max-width: 900px;
+  padding: 1rem;
+  background: #1100FF;
+  z-index: 999;
+overflow: hidden;
+}
 
 .main {
     width: 100%;
@@ -207,7 +223,7 @@ p {
 
 /* Sign-In Button */
 #showSignInButton {
-    background-color: #1100FF;
+    background-color: #000000;
 }
 
 /* Modal Styling */
