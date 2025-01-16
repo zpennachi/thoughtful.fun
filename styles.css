@@ -88,15 +88,18 @@ model-viewer {
 }
 
 #upload-section {
-position: fixed;
-  bottom: 0px;
+  position: fixed;
+  bottom: 0;
   width: 100%;
   max-width: 900px;
   padding: 1rem;
-  background: #1100FF;
+  background: rgba(17, 0, 255, 0.8);
+  backdrop-filter: blur(10px); /* Adds the blur effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
   z-index: 999;
-overflow: hidden;
+  overflow: hidden;
 }
+
 
 .main {
     width: 100%;
