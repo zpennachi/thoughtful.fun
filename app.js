@@ -354,6 +354,7 @@ entry.file.forEach((fileUrl) => {
         modelViewer.cameraControls = true;
         modelViewer.style.position = 'relative';
       modelViewer.setAttribute('touch-action', 'pan-y');
+      modelViewer.setAttribute('ar');
       modelViewer.setAttribute('interaction-prompt', 'none');
         modelViewer.style.top = '0';
         modelViewer.style.left = '0';
